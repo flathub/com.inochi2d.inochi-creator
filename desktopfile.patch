@@ -1,5 +1,5 @@
---- res/inochi-creator.desktop	2022-09-16 21:31:12.240257110 -0500
-+++ res/inochi-creator.desktop	2022-09-16 21:30:53.097286617 -0500
+--- inochi-creator/res/inochi-creator.desktop	2022-09-16 21:31:12.240257110 -0500
++++ inochi-creator/res/inochi-creator.desktop	2022-09-16 21:30:53.097286617 -0500
 @@ -1,6 +1,6 @@
  [Desktop Entry]
 -Name=inochi-creator
