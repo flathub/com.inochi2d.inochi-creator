@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='utf-8'?>
+<component type="desktop">
+  <id>com.inochi2d.inochi-creator</id>
+  <name>Inochi Creator</name>
+  <summary>Tool to create and edit Inochi2D puppets.</summary>
+  <developer_name>Luna Nielsen</developer_name>
+  <launchable type="desktop-id">com.inochi2d.inochi-creator.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>BSD-2-Clause</project_license>
+  <description>
+    <p>Inochi2D is a framework for realtime 2D puppet animation which can be used for VTubing, 
+      game development and digital animation.</p>
+    <p>Inochi Creator is a tool that lets you create and edit Inochi2D puppets.</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Title screen</caption>
+      <image type="source">https://user-images.githubusercontent.com/7032834/170948484-2f3a8175-9c45-4cf6-ae7e-0a6ee86bdc53.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="v0.7.3" date="2022-07-03" type="stable">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.7.3</url>
+          <description>
+            <p>Changelog</p>
+            <ul>
+                <li>Updated Japanese translation</li>
+                <li>Updated Danish translation</li>
+                <li>Updated puppet gravity settings to show meters per second</li>
+                <li>Math implementation to inmath</li>
+                <li>Added Chinese (Simplified) translation (contributed by @LovelyA72)</li>
+                <li>Added Chinese (Simplified) translation (contributed by @LovelyA72)</li>
+                <li>Added Italian translation (contributed by @adryzz)</li>
+                <li>Added translation hotswapping</li>
+                <li>Added graceful error handling dialogs for some errors</li>
+                <li>Added Open Configuration Folder menu item for Flatpak support</li>
+                <li>Added help text for mask sources list</li>
+                <li>Added Extended nodes system -- Part nodes now store which PSD layer they came from</li>
+                <li>Added PSD merging</li>
+                <li>Added status messages to the bottom task bar</li>
+                <li>Added markdown renderer for About dialog</li>
+                <li>Added screen and multiply tinting</li>
+                <li>Added dialog system with new art by いろは</li>
+                <li>Added point filtering option to Puppet settings</li>
+                <li>Added the ability to split a parameter</li>
+                <li>Added the ability to generate layer mapping names from part node names</li>
+                <li>Changed node tree icon to act as show/hide button</li>
+                <li>Removed KHR_debug and GL_AllowDeprecated</li>
+                <li>Removed forward compat GL dependency</li>
+                <li>Removed custom titlebar</li>
+                <li>Fixed rendering of CJK and latin languages by moving to Noto CJK</li>
+                <li>Fixed item widths in inspector</li>
+                <li>Fixed font rendering resolution</li>
+                <li>Fixed crashes from ending window rendering wrong</li>
+                <li>Fixed missing ImGui IDs</li>
+                <li>Fixed crash when displaying node IDs (contributed by @grillo-delmal)</li>
+                <li>Fixed windows on Linux with wayland not showing a window border</li>
+                <li>Fixed (major) tiling window managers rendering windows wrong</li>
+                <li>Fixed node reordering, sorting and positioning</li>
+                <li>Fixed imgui state not being cleared on project open/new</li>
+            </ul>
+
+            <p>Known issues</p>
+            <ul>
+                <li>The undo system has been broken further.</li>
+            </ul>
+          </description>
+    </release>
+  </releases>
+  <url type="homepage">https://lunafoxgirlvt.itch.io/inochi-creator</url>
+  <url type="bugtracker">https://github.com/Inochi2D/inochi-creator/issues</url>
+  <url type="help">https://discord.com/invite/abnxwN6r9v</url>
+  <url type="donation">https://inochi2d.com/#donate</url>
+  <url type="vcs-browser">https://github.com/Inochi2D/inochi-creator</url>
+  <url type="contribute">https://github.com/Inochi2D/inochi-creator</url>
+  <categories>
+    <category>Graphics</category>
+  </categories>
+  <requires>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </requires>
+  <content_rating type="oars-1.1"/>
+</component>
