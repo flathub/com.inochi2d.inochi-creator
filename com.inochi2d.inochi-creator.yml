@@ -28,6 +28,7 @@ modules:
   - name: Inochi-Creator
     buildsystem: simple
     build-commands:
+      - mkdir -p /app/bin/
       - mv * /app/bin/
       # - mv inochi-creator /app/bin/inochi-creator
 
