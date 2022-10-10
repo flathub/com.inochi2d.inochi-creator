@@ -8,7 +8,6 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>BSD-2-Clause</project_license>
   <description>
-    <p>THIS FLATPAK MAY NOT WORK AS INTENDED CURRENTLY. PLEASE USE THE OFFICIAL BINARIES BEFORE MAKING AN ISSUE</p>
     <p>Inochi2D is a framework for realtime 2D puppet animation which can be used for VTubing, 
       game development and digital animation.</p>
     <p>Inochi Creator is a tool that lets you create and edit Inochi2D puppets.</p>
@@ -16,54 +15,70 @@
   <screenshots>
     <screenshot type="default">
       <caption>Title screen</caption>
-      <image type="source">https://user-images.githubusercontent.com/7032834/170948484-2f3a8175-9c45-4cf6-ae7e-0a6ee86bdc53.png</image>
+      <image type="source">https://user-images.githubusercontent.com/7032834/194462402-74c4a3e0-50ca-4b50-8e8d-164d97371f5a.png</image>
     </screenshot>
   </screenshots>
   <releases>
-    <release version="v0.7.3" date="2022-07-03" type="stable">
-      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.7.3</url>
+    <release version="v0.7.4.1" date="2022-10-10" type="stable">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.7.4.1</url>
           <description>
             <p>Changelog</p>
             <ul>
+                <li>Added support for xdg-desktop-portal on Linux</li>
+                <li>Added link buttons</li>
+                <li>Added welcome screen</li>
+                <li>Added banner illustration by 七乃ななせ</li>
+                <li>Added shadowed text widget</li>
+                <li>Added a new Inochi Creator icon</li>
+                <li>Added new fancy texture slot</li>
+                <li>Added support for editing post processing textures</li>
+                <li>Added ability to convert albedo textures to emmission textures</li>
+                <li>Added right click menu in viewport for part selection</li>
+                <li>Added model export dialog</li>
+                <li>Added new Camera node</li>
+                <li>Added image export</li>
+                <li>Added border scroll to nodes list when dragging nodes around</li>
+                <li>Added parameter groups with coloration support</li>
+                <li>Added internal support for custom toolbars</li>
+                <li>Added experimental timeline in InExperimental</li>
+                <li>Added new issue templates for bug reporting and feature requests</li>
+                <li>Added links in the help menu for bug reporting and feature requests</li>
                 <li>Updated Japanese translation</li>
+                <li>Updated Chinese translations</li>
                 <li>Updated Danish translation</li>
-                <li>Updated puppet gravity settings to show meters per second</li>
-                <li>Math implementation to inmath</li>
-                <li>Added Chinese (Simplified) translation (contributed by @LovelyA72)</li>
-                <li>Added Chinese (Simplified) translation (contributed by @LovelyA72)</li>
-                <li>Added Italian translation (contributed by @adryzz)</li>
-                <li>Added translation hotswapping</li>
-                <li>Added graceful error handling dialogs for some errors</li>
-                <li>Added Open Configuration Folder menu item for Flatpak support</li>
-                <li>Added help text for mask sources list</li>
-                <li>Added Extended nodes system -- Part nodes now store which PSD layer they came from</li>
-                <li>Added PSD merging</li>
-                <li>Added status messages to the bottom task bar</li>
-                <li>Added markdown renderer for About dialog</li>
-                <li>Added screen and multiply tinting</li>
-                <li>Added dialog system with new art by いろは</li>
-                <li>Added point filtering option to Puppet settings</li>
-                <li>Added the ability to split a parameter</li>
-                <li>Added the ability to generate layer mapping names from part node names</li>
-                <li>Changed node tree icon to act as show/hide button</li>
-                <li>Removed KHR_debug and GL_AllowDeprecated</li>
-                <li>Removed forward compat GL dependency</li>
-                <li>Removed custom titlebar</li>
-                <li>Fixed rendering of CJK and latin languages by moving to Noto CJK</li>
-                <li>Fixed item widths in inspector</li>
-                <li>Fixed font rendering resolution</li>
-                <li>Fixed crashes from ending window rendering wrong</li>
-                <li>Fixed missing ImGui IDs</li>
-                <li>Fixed crash when displaying node IDs (contributed by @grillo-delmal)</li>
-                <li>Fixed windows on Linux with wayland not showing a window border</li>
-                <li>Fixed (major) tiling window managers rendering windows wrong</li>
-                <li>Fixed node reordering, sorting and positioning</li>
-                <li>Fixed imgui state not being cleared on project open/new</li>
-            </ul>
-
-            <p>Known issues</p>
-            <ul>
-                <li>The undo system has been broken further.</li>
+                <li>Updated italian translation</li>
+                <li>Updated shortcut handling</li>
+                <li>Updated UI scaling implementation (still work in progress)</li>
+                <li>Updated UI settings window with a new design</li>
+                <li>Updated parameter axes with a new design</li>
+                <li>Updated look of categories in the inspector</li>
+                <li>Updated look and functionality of the viewport</li>
+                <li>Updated the look and functionality of mesh editing</li>
+                <li>Updated light theme</li>
+                <li>Changed packaging format on Linux to Flatpak</li>
+                <li>Changed how parameters are displayed when editing</li>
+                <li>Changed minimum window size to 960x720</li>
+                <li>Changed Gizmo settings to be in a submenu</li>
+                <li>Fixed multiple textures conflicting on PSD merge</li>
+                <li>Fixed rendering of armed parameters</li>
+                <li>Fixed various imgui assert crashes</li>
+                <li>Fixed path corruption in previous projects list</li>
+                <li>Fixed physics being enabled when editing deformation</li>
+                <li>Fixed null terminator in string input</li>
+                <li>Fixed undo system for parameter editing</li>
+                <li>Fixed undo system for moving node around</li>
+                <li>Fixed language selection not showing language name in their native language</li>
+                <li>Fixed ordering of language selection</li>
+                <li>Fixed parameters not getting disarmed on project load</li>
+                <li>Fixed Wayland detection code</li>
+                <li>Fixed accuracy camera auto focus functionality</li>
+                <li>Fixed some windows not running their quit functionality when closed</li>
+                <li>Fixed display of gravity units in Puppet inspector</li>
+                <li>Fixed vertex offset during merge being applied wrong</li>
+                <li>Fixed center node/Viewport accidentally being a dockable node</li>
+                <li>Fixed icon on Linux with X11 being wrong</li>
+                <li>Removed LTO compilation</li>
+                <li>Removed Test Mode temporarily</li>
             </ul>
           </description>
     </release>
