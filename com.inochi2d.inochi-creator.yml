@@ -1,18 +1,18 @@
 id: com.inochi2d.inochi-creator
 runtime: org.kde.Platform
-runtime-version: "5.15-21.08"
+runtime-version: 5.15-21.08
 sdk: org.kde.Sdk
 # sdk-extensions:
 #   - org.freedesktop.Sdk.Extension.ldc
 #   - org.freedesktop.Sdk.Extension.dmd #This lacks aarch64 support, so gonna just pull a binary and later use only-arches to grab one when/if it's released.
-command: "inochi-creator"
+command: inochi-creator
 finish-args:
-    - "--device=all" #OpenGL rendering, webcams (may be required? not sure)
-    - "--socket=x11"
-    - "--share=ipc" # The X and Wayland sockets are permanently exposed, because kdialog takes longer to start if it only has X access, and doesn't work at all if only using Wayland.
-    - "--socket=wayland" #The app doesn't like the environment variable being different from the available sockets, but it runs on Xwayland anyways, and complains if it doesn't have access. Might be fixed on https://github.com/Inochi2D/inochi-creator/commit/62099f3c6228a34c1d0127abd51a78802d5bddde
-    - "--filesystem=host" #This is a dev tool, it should probably have as much access to the host as it can. It also doesn't yet utilize portals. Appropriate issue: https://github.com/Inochi2D/inochi-creator/issues/76
-    - "--env=XDG_CURRENT_DESKTOP=KDE" #Hopefully fixes the issues it has with running on non-KDE desktops.
+  - --device=all     #OpenGL rendering, webcams (may be required? not sure)
+  - --socket=x11
+  - --share=ipc     # The X and Wayland sockets are permanently exposed, because kdialog takes longer to start if it only has X access, and doesn't work at all if only using Wayland.
+  - --socket=wayland     #The app doesn't like the environment variable being different from the available sockets, but it runs on Xwayland anyways, and complains if it doesn't have access. Might be fixed on https://github.com/Inochi2D/inochi-creator/commit/62099f3c6228a34c1d0127abd51a78802d5bddde
+  - --filesystem=host     #This is a dev tool, it should probably have as much access to the host as it can. It also doesn't yet utilize portals. Appropriate issue: https://github.com/Inochi2D/inochi-creator/issues/76
+  - --env=XDG_CURRENT_DESKTOP=KDE     #Hopefully fixes the issues it has with running on non-KDE desktops.
 
 #This extension will be needed in some newer releases, as of https://github.com/Inochi2D/inochi-creator/commit/5d67cded1273aced9033d327a8eb29c6f078a3c0
 # add-extensions:
@@ -25,10 +25,10 @@ finish-args:
 modules:
   # --- Tools ---
   - name: xprop
-    sources: 
+    sources:
       - type: archive
         url: https://xorg.freedesktop.org/archive/individual/app/xprop-1.2.4.tar.bz2
-        sha256: "8c77fb096e46c60032b7e2bde9492c3ffcc18734f50b395085a5f10bfd3cf753"
+        sha256: 8c77fb096e46c60032b7e2bde9492c3ffcc18734f50b395085a5f10bfd3cf753
 
   - name: zenity
     buildsystem: meson
@@ -52,28 +52,28 @@ modules:
       - mv * /app/bin/
       # - mv inochi-creator /app/bin/inochi-creator
 
-    sources: 
+    sources:
       - type: archive
-        url: https://github.com/Inochi2D/inochi-creator/releases/download/v0.7.3/inochi-creator-linux-x86_64.zip #Permission for distributing with branding and the like enabled was confirmed here: https://github.com/Inochi2D/inochi-creator/issues/75
-        sha256: 026a2d8a4cf563ca5b9654da0dc21a3f715eaeeacc865f34d0d64511e59435e8 
+        url: https://github.com/Inochi2D/inochi-creator/releases/download/v0.7.4/inochi-creator-linux-x86_64.zip #Permission for distributing with branding and the like enabled was confirmed here: https://github.com/Inochi2D/inochi-creator/issues/75
+        sha256: 27ae41f83b2747ab1910713f8ee372a3c019a0a31ff4858d5975ebfef45045d0
         x-checker-data: # Thanks to https://theevilskeleton.gitlab.io/ for sorting out the external data checker
           type: json
           url: https://api.github.com/repos/Inochi2D/inochi-creator/releases/latest
           version-query: .tag_name | sub("^v"; "")
-          url-query: .assets[] | select(.name=="inochi-creator-linux-x86_64.zip") | .browser_download_url 
+          url-query: .assets[] | select(.name=="inochi-creator-linux-x86_64.zip")
+            | .browser_download_url
 
   - name: Metadata
     buildsystem: simple
-    build-commands: 
+    build-commands:
 
       - install -Dm644 com.inochi2d.inochi-creator.metadata.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
       - install -Dm644 ./creator/icon_128.png /app/share/icons/hicolor/128x128/apps/com.inochi2d.inochi-creator.png
       - install -Dm644 ./creator/icon_256.png /app/share/icons/hicolor/256x256/apps/com.inochi2d.inochi-creator.png
-      - install -Dm644 ./creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.pngcd 
+      - install -Dm644 ./creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.pngcd
       - install -Dm644 ./inochi-creator/res/inochi-creator.desktop /app/share/applications/com.inochi2d.inochi-creator.desktop
 
-    sources: 
-    
+    sources:
       - type: git
         url: https://github.com/Inochi2D/branding.git
         commit: a412602d346ba69c63237217ae286112e300927d
