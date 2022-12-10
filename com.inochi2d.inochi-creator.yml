@@ -1,16 +1,15 @@
 id: com.inochi2d.inochi-creator
 runtime: org.freedesktop.Platform
-runtime-version: 21.08
+runtime-version: "21.08"
 sdk: org.freedesktop.Sdk
 # sdk-extensions:
-#   - org.freedesktop.Sdk.Extension.ldc
-#   - org.freedesktop.Sdk.Extension.dmd #This lacks aarch64 support, so gonna just pull a binary and later use only-arches to grab one when/if it's released.
+#   - org.freedesktop.Sdk.Extension.ldc #Building Inochi2D from source, offline, would serve to be too annoying, so I'm going to instead pull binaries from upstream; it'll provide them Soon:TM:
 command: inochi-creator
 finish-args:
   - --device=all     #OpenGL rendering, webcams (may be required? not sure)
-  - --socket=x11
+  - --socket=fallback-x11
   - --share=ipc     
-#  - --socket=wayland  #CSDs are broken on Flatpak currently.   
+  - --socket=wayland  
   - --filesystem=host     #This is a dev tool, it should probably have as much access to the host as it can. Also needs it for "Recent Files"
 
 
@@ -23,6 +22,8 @@ add-extensions:
 
 
 modules:
+
+  - shared-modules/SDL2/SDL2-2.26.1-with-libdecor.json
 
   # --- Inochi Creator ---
   - name: Inochi-Creator
