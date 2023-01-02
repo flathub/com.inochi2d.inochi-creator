@@ -1,0 +1,27 @@
+[
+	{
+		"type": "git",
+		"url": "https://github.com/Inochi2D/bindbc-imgui.git",
+		"commit": "b3d6e32cb0ce7c607a8e249a11c4a5a4ed0a19e8"
+	},
+	{
+		"type": "git",
+		"url": "https://github.com/Inochi2D/inochi2d.git",
+		"commit": "3ab732e898722c5ec0d7fc13edeb6d9e2975eec9"
+	},
+	{
+		"type": "git",
+		"url": "https://github.com/Inochi2D/facetrack-d.git",
+		"commit": "849a70bf12f2397da3f59e6474393bc68af46067"
+	},
+	{
+		"type": "git",
+		"url": "https://github.com/KitsunebiGames/i18n.git",
+		"commit": "75c57ea0889d459b73765d932aec02f9b3e71b80"
+	},
+	{
+		"type": "git",
+		"url": "https://github.com/Inochi2D/dcv-i2d.git",
+		"commit": "40a81a6fa1883b88c8ee3ba237c31a54b2225b86"
+	}
+]

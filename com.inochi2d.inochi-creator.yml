@@ -41,7 +41,7 @@ modules:
         dub build --compiler=ldc2 --build=release --config=full
 
     sources:
-      - inochi-creator-sources.json
+      - dub-add-local-sources.json
 
   - name: Metadata
     buildsystem: simple
