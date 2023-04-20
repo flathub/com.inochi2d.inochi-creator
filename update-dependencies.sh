@@ -4,8 +4,30 @@ set -e
 
 source ./semver.sh
 
-# TODO: Add options for latest tag and nightly
-# LATEST_TAG=1
+MODE="LATEST_TAG"
+
+# Parse options
+for i in "$@"; do
+  case $i in
+    -t=*|--tag=*)
+      TAG="${i#*=}"
+      if [[ $TAG == "nightly" ]] ; then
+        MODE="NIGHTLY"
+      else 
+        MODE="CHECKOUT"
+      fi
+      shift # past argument=value
+      ;;
+    -*|--*)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+
+echo "Running on $MODE mode."
 
 mkdir -p dep.build
 
@@ -16,6 +38,16 @@ find ./dep.build -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
 pushd dep.build
 
 git clone https://github.com/Inochi2D/inochi-creator.git
+
+# Get the correct version of inochi-creator
+if [[ "${MODE}" == "LATEST_TAG" ]]; then
+    # Get correct versions for latest tag
+    LATEST_TAG=$(git -C ./inochi-creator/ describe --tags \
+        `git -C ./inochi-creator/ rev-list --tags --max-count=1`)
+    git -C ./inochi-creator/ checkout $LATEST_TAG
+elif [[ "${MODE}" == "CHECKOUT" ]]; then
+    git -C ./inochi-creator/ checkout $TAG
+fi
 
 # Download deps
 mkdir -p ./deps
@@ -33,12 +65,7 @@ git clone https://github.com/Inochi2D/gitver.git
 git clone https://github.com/dcarp/semver.git
 popd #deps
 
-if [[ "${LATEST_TAG}" -eq 1 ]]; then
-    # Get correct versions for latest tag
-    LATEST_TAG=$(git -C ./inochi-creator/ describe --tags \
-        `git -C ./inochi-creator/ rev-list --tags --max-count=1`)
-    git -C ./inochi-creator/ checkout $LATEST_TAG
-
+if [[ "${MODE}" != "NIGHTLY" ]]; then
     # Update repos to their state at marked date
     CREATOR_DATE=$(git -C ./inochi-creator/ show -s --format=%ci)
     for d in ./deps/*/ ; do
@@ -48,17 +75,24 @@ if [[ "${LATEST_TAG}" -eq 1 ]]; then
 fi
 
 # Fix tag for inochi2d and semver version
-INOCHI2D_TAG=v$(grep -oP 'inochi2d.*~>\K(.*)(?=")' ./inochi-creator/dub.sdl)
+# .This perl regular expresion will match strings that contain
+# .`inochi2d`, `~>` and `"`, with anything in between those things
+# .it will output only the things between `~>` and `"`
+REQ_INOCHI2D_TAG=v$(grep -oP 'inochi2d.*~>\K(.*)(?=")' ./inochi-creator/dub.sdl)
 CUR_INOCHI2D_TAG=$(git -C ./deps/inochi2d/ describe --tags \
         `git -C ./deps/inochi2d/ rev-list --tags --max-count=1`)
-if [[ "$CUR_INOCHI2D_TAG" != "$INOCHI2D_TAG" ]]; then
-    git -C ./deps/inochi2d/ tag -d "$INOCHI2D_TAG" || true
-    git -C ./deps/inochi2d/ tag "$INOCHI2D_TAG"
+if [[ "$CUR_INOCHI2D_TAG" != "$REQ_INOCHI2D_TAG" ]]; then
+    git -C ./deps/inochi2d/ tag -d "$REQ_INOCHI2D_TAG" || true
+    git -C ./deps/inochi2d/ tag "$REQ_INOCHI2D_TAG"
 fi
-SEMVER_TAG=v$(grep -oP 'semver.*~>\K(.*)(?=")' ./deps/gitver/dub.sdl)
-git -C ./deps/semver/ checkout "$SEMVER_TAG"
+# .Same logic as above, but now using semver instead of inochi2d
+REQ_SEMVER_TAG=v$(grep -oP 'semver.*~>\K(.*)(?=")' ./deps/gitver/dub.sdl)
+git -C ./deps/semver/ checkout "$REQ_SEMVER_TAG"
 
-#HACK: Undocumented way to add local packages directly to the project
+# HACK: Undocumented way to add local packages directly to the project
+# .This function takes the name and version of a dependency
+# .and adds it to the .dub/packages/local-packages.json
+# .inside inochi-creator
 function add_dep() {
 python3 << EOF
 import json
@@ -79,6 +113,9 @@ with open("./inochi-creator/.dub/packages/local-packages.json", "w") as f:
 EOF
 }
 
+# .Call the above defined function for all the dependencies
+# .Also use the imported semver function to calculate the version
+# .in the format used by dlang
 mkdir -p ./inochi-creator/.dub/packages
 for d in ./deps/*/ ; do
     add_dep $(basename $d) "$(semver $d)"
@@ -115,8 +152,12 @@ with open("./dep.build/dub-dependencies.json", "r") as f:
 
 forked_sources = os.listdir("./dep.build/deps")
 
+# .Regular expression used to capture the name
+# .of the dependency from the url. used to check if the
+# .entry is in the list of forked_sources
 url_re = re.compile(r"https://code\.dlang\.org/packages/(.*)/")
 
+# Add inochi-creator entry
 result.append({
     "type": "git",
     "url": subprocess.check_output(
@@ -128,6 +169,7 @@ result.append({
     "disable-shallow-clone": True
     })
 
+# Add gitver entry
 result.append({
     "type": "git",
     "url": subprocess.check_output(
@@ -140,6 +182,7 @@ result.append({
     "disable-shallow-clone": True
     })
 
+# Add semver entry
 result.append({
     "type": "git",
     "url": subprocess.check_output(
@@ -152,10 +195,13 @@ result.append({
     "disable-shallow-clone": True
     })
 
+# Process all entries
 for source in data:
     if source["type"] == "archive":
         url_check = url_re.match(source["url"])
         if url_check is not None and url_check[1] in forked_sources:
+            # If the entry is one of the forked libraries, replace it
+            # with the one from git
             repo_name = url_check[1]
             new_src = {
                 "type": "git",
@@ -169,7 +215,7 @@ for source in data:
                 "disable-shallow-clone": True
             }
 
-            #HACK: this repo has a weird submodule 
+            #HACK: the fghj repo has a submodule that crashes flatpak 
             if repo_name == "fghj":
                 new_src["disable-submodules"] = True
             result.append(new_src)
