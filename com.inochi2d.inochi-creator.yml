@@ -36,6 +36,7 @@ modules:
       - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
 
     sources:
+      - inochi-creator-source.json
       - dub-add-local-sources.json
 
   - name: Metadata

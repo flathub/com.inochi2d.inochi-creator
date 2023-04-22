@@ -1,12 +1,6 @@
 [
     {
         "type": "git",
-        "url": "https://github.com/Inochi2D/inochi-creator.git",
-        "commit": "f1bfc20122d1f912f400d0838c529e220718bfb2",
-        "disable-shallow-clone": true
-    },
-    {
-        "type": "git",
         "url": "https://github.com/Inochi2D/gitver.git",
         "commit": "763a803936f6588d398f9eadc4965980b7903f4d",
         "dest": ".flatpak-dub/gitver",

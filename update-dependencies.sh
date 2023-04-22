@@ -4,15 +4,45 @@ set -e
 
 source ./semver.sh
 
-MODE="LATEST_TAG"
+MODE="READ"
+VERIFY_CREATOR=0
 
 # Parse options
 for i in "$@"; do
   case $i in
+    -h|--help)
+cat <<EOL
+Usage: $0 [OPTION]...
+Checks inochi-creator repository, calculates dependencies and stores them 
+on files ready to be used by flatpak-builder.
+
+  --tag=<string>    Defines which version of inochi-creator to checkout.
+                    * "nightly" will checkout the latest commit from all 
+                    repositories
+                    * "latest-tag" will checkout the latest tag available
+                    * Any other string will be processed as a
+                    tag/branch/commit to checkout
+                    * If the parameter is not defined, it will read the 
+                    commit from ./inochi-creator-source.json
+    --verify        Check if the requested commit is equal to the one
+                    registered in ./inochi-creator-source.json, if it
+                    applies, then the process stops.
+                    This argument has no effect if the --tag option
+                    is not used
+    --help          display this help and exit
+
+EOL
+    exit 0
+    ;;
+    --verify)
+      VERIFY_CREATOR=1
+    ;;
     -t=*|--tag=*)
       TAG="${i#*=}"
       if [[ $TAG == "nightly" ]] ; then
         MODE="NIGHTLY"
+      elif [[ $TAG == "latest-tag" ]] ; then
+        MODE="LATEST_TAG"
       else 
         MODE="CHECKOUT"
       fi
@@ -28,6 +58,11 @@ for i in "$@"; do
 done
 
 echo "Running on $MODE mode."
+if [[ $VERIFY_CREATOR -eq 1 ]]; then
+    echo "Update verification ON."
+else
+    echo "Update verification OFF."
+fi
 
 mkdir -p dep.build
 
@@ -39,14 +74,56 @@ pushd dep.build
 
 git clone https://github.com/Inochi2D/inochi-creator.git
 
-# Get the correct version of inochi-creator
-if [[ "${MODE}" == "LATEST_TAG" ]]; then
-    # Get correct versions for latest tag
-    LATEST_TAG=$(git -C ./inochi-creator/ describe --tags \
+# Get the correct checkout target
+if [[ "${MODE}" == "READ" ]]; then
+    # Read commit hash from inochi-creator-source.json
+    CHECKOUT_TARGET=$(grep -oP '"commit".*"\K(.*)(?=")' ../inochi-creator-source.json)
+elif [[ "${MODE}" == "LATEST_TAG" ]]; then
+    # Get the latest tag from the tag list
+    CHECKOUT_TARGET=$(git -C ./inochi-creator/ describe --tags \
         `git -C ./inochi-creator/ rev-list --tags --max-count=1`)
-    git -C ./inochi-creator/ checkout $LATEST_TAG
 elif [[ "${MODE}" == "CHECKOUT" ]]; then
-    git -C ./inochi-creator/ checkout $TAG
+    CHECKOUT_TARGET=$TAG
+fi
+git -C ./inochi-creator/ checkout $CHECKOUT_TARGET
+
+# Write inochi-creator version
+if [[ "${MODE}" != "READ" ]]; then
+    if [[ $VERIFY_CREATOR -eq 1 ]]; then
+        COMMIT=$(grep -oP '"commit": "\K(.*)(?=")' ../inochi-creator-source.json)
+        NEW_COMMIT=$(git -C ./inochi-creator rev-parse HEAD)
+        if [[ "$COMMIT" == "$NEW_COMMIT" ]]; then
+            echo "No update found for inochi-creator"
+            exit 1
+        fi
+    fi
+
+python3 << EOF
+import subprocess
+import json
+
+data = []
+result = []
+
+commit = subprocess.check_output(
+    ["git", "-C", "./inochi-creator", 
+    "rev-parse", "HEAD"]).decode("utf-8").strip()
+url = subprocess.check_output(
+    ["git", "-C", "./inochi-creator", 
+    "config", "--get", "remote.origin.url"]).decode("utf-8").strip()
+
+# Add inochi-creator entry
+result.append({
+    "type": "git",
+    "url": url,
+    "commit" : commit,
+    "disable-shallow-clone": True
+    })
+
+with open("../inochi-creator-source.json", "w") as f:
+    json.dump(result, f, indent=4)
+EOF
+
 fi
 
 # Download deps
@@ -61,6 +138,8 @@ git clone https://github.com/Inochi2D/fghj.git
 git clone https://github.com/Inochi2D/bindbc-imgui.git
 git clone https://github.com/KitsunebiGames/i18n.git i18n-d
 git clone https://github.com/Inochi2D/dportals.git
+
+# Download gitver and semver
 git clone https://github.com/Inochi2D/gitver.git
 git clone https://github.com/dcarp/semver.git
 popd #deps
@@ -156,18 +235,6 @@ forked_sources = os.listdir("./dep.build/deps")
 # .of the dependency from the url. used to check if the
 # .entry is in the list of forked_sources
 url_re = re.compile(r"https://code\.dlang\.org/packages/(.*)/")
-
-# Add inochi-creator entry
-result.append({
-    "type": "git",
-    "url": subprocess.check_output(
-        ["git", "-C", "./dep.build/inochi-creator", 
-        "config", "--get", "remote.origin.url"]).decode("utf-8").strip(),
-    "commit" : subprocess.check_output(
-        ["git", "-C", "./dep.build/inochi-creator", 
-        "rev-parse", "HEAD"]).decode("utf-8").strip(),
-    "disable-shallow-clone": True
-    })
 
 # Add gitver entry
 result.append({

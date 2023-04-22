@@ -1,2 +1,3 @@
 .flatpak-builder
 dep.build
+build-dir
