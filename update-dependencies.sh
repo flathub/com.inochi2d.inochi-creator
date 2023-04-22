@@ -23,7 +23,7 @@ on files ready to be used by flatpak-builder.
 EOL
             exit 0
             ;;
-        -n|--tag)
+        -n|--nightly)
             MODE="NIGHTLY"
             ;;
         -f|--force)
