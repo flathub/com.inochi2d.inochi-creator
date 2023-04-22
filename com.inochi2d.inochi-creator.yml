@@ -36,8 +36,16 @@ modules:
       - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
 
     sources:
-      - inochi-creator-source.json
       - dub-add-local-sources.json
+
+      - type: git
+        url: https://github.com/Inochi2D/inochi-creator.git
+        commit: f1bfc20122d1f912f400d0838c529e220718bfb2
+        tag: v0.7.4.1
+        disable-shallow-clone: true
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)
 
   - name: Metadata
     buildsystem: simple

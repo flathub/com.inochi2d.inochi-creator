@@ -5,103 +5,66 @@ set -e
 source ./scripts/semver.sh
 
 MODE="READ"
-VERIFY_CREATOR=0
+VERIFY_CREATOR=1
 
 # Parse options
 for i in "$@"; do
-  case $i in
-    -h|--help)
+    case $i in
+        -h|--help)
 cat <<EOL
 Usage: $0 [OPTION]...
 Checks inochi-creator repository, calculates dependencies and stores them 
 on files ready to be used by flatpak-builder.
 
-  --tag=<string>    Defines which version of inochi-creator to checkout.
-                    * "nightly" will checkout the latest commit from all 
+    --nightly       Will checkout the latest commit from all 
                     repositories
-                    * "latest-tag" will checkout the latest tag available
-                    * Any other string will be processed as a
-                    tag/branch/commit to checkout
-                    * If the parameter is not defined, it will read the 
-                    commit from ./inochi-creator-source.json
-    --verify        Check if the requested commit is equal to the one
-                    registered in ./inochi-creator-source.json, if it
-                    applies, then the process stops.
-                    This argument has no effect if the --tag option
-                    is not used
+    --force         Skip verification
     --help          display this help and exit
-
 EOL
-    exit 0
-    ;;
-    --verify)
-      VERIFY_CREATOR=1
-    ;;
-    -t=*|--tag=*)
-      TAG="${i#*=}"
-      if [[ $TAG == "nightly" ]] ; then
-        MODE="NIGHTLY"
-      elif [[ $TAG == "latest-tag" ]] ; then
-        MODE="LATEST_TAG"
-      else 
-        MODE="CHECKOUT"
-      fi
-      shift # past argument=value
-      ;;
-    -*|--*)
-      echo "Unknown option $i"
-      exit 1
-      ;;
-    *)
-      ;;
-  esac
+            exit 0
+            ;;
+        -n|--tag)
+            MODE="NIGHTLY"
+            ;;
+        -f|--force)
+            VERIFY_CREATOR=0
+            ;;
+        -*|--*)
+            echo "Unknown option $i"
+            exit 1
+            ;;
+        *)
+            ;;
+    esac
 done
 
+### VERIFICATION STAGE
+
 echo "Running on $MODE mode."
-if [[ $VERIFY_CREATOR -eq 1 ]]; then
-    echo "Update verification ON."
-else
-    echo "Update verification OFF."
-fi
-
-mkdir -p dep.build
-
-# Delete any old virtualenv to be sure te recreate a clean one
-find ./dep.build -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
-
-# Download inochi-creator
-pushd dep.build
-
-git clone https://github.com/Inochi2D/inochi-creator.git
-
-# Get the correct checkout target
-if [[ "${MODE}" == "READ" ]]; then
-    # Read commit hash from inochi-creator-source.json
-    CHECKOUT_TARGET=$(grep -oP '"commit".*"\K(.*)(?=")' ../inochi-creator-source.json)
-elif [[ "${MODE}" == "LATEST_TAG" ]]; then
-    # Get the latest tag from the tag list
-    CHECKOUT_TARGET=$(git -C ./inochi-creator/ describe --tags \
-        `git -C ./inochi-creator/ rev-list --tags --max-count=1`)
-elif [[ "${MODE}" == "CHECKOUT" ]]; then
-    CHECKOUT_TARGET=$TAG
-fi
-git -C ./inochi-creator/ checkout $CHECKOUT_TARGET
-
-# Write inochi-creator version
-if [[ "${MODE}" != "READ" ]]; then
-    if [[ $VERIFY_CREATOR -eq 1 ]]; then
-        COMMIT=$(grep -oP '"commit": "\K(.*)(?=")' ../inochi-creator-source.json)
-        NEW_COMMIT=$(git -C ./inochi-creator rev-parse HEAD)
-        if [[ "$COMMIT" == "$NEW_COMMIT" ]]; then
-            echo "No update found for inochi-creator"
+CHECKOUT_TARGET=$(python3 ./scripts/find-creator-hash.py ./com.inochi2d.inochi-creator.yml)
+# Verify that we are not repeating work 
+if [ "${MODE}" == "READ" ] && [ "${VERIFY_CREATOR}" == "1" ]; then
+    if [ -f "./.dep_target" ]; then
+        LAST_PROC=$(cat ./.dep_target)
+        if [ "$CHECKOUT_TARGET" == "$LAST_PROC" ]; then
+            echo "Dependencies already processed for current commit."
             exit 1
         fi
     fi
-
-    python3 ../scripts/write-creator-source.py \
-        "../inochi-creator-source.json" \
-        "./inochi-creator"
 fi
+
+### DOWNLOAD STAGE
+
+mkdir -p dep.build
+
+# Delete the old working directory
+find ./dep.build -mindepth 1 -maxdepth 1 -exec rm -rf -- {} +
+
+pushd dep.build
+
+# Download inochi-creator
+git clone https://github.com/Inochi2D/inochi-creator.git
+git -C ./inochi-creator/ checkout $CHECKOUT_TARGET
 
 # Download deps
 mkdir -p ./deps
@@ -121,8 +84,8 @@ git clone https://github.com/Inochi2D/gitver.git
 git clone https://github.com/dcarp/semver.git
 popd #deps
 
-if [[ "${MODE}" != "NIGHTLY" ]]; then
-    # Update repos to their state at marked date
+if [ "${MODE}" == "READ" ]; then
+    # Update repos to their state at inochi-creators commit date
     CREATOR_DATE=$(git -C ./inochi-creator/ show -s --format=%ci)
     for d in ./deps/*/ ; do
         DEP_COMMIT=$(git -C $d log --before="$CREATOR_DATE" -n1 --pretty=format:"%H" | head -n1)
@@ -130,7 +93,8 @@ if [[ "${MODE}" != "NIGHTLY" ]]; then
     done
 fi
 
-# Fix tag for inochi2d and semver version
+# Fix tag for inochi2d and semver version by searching the required
+# version on the respective dub.sdl file
 # .This perl regular expresion will match strings that contain
 # .`inochi2d`, `~>` and `"`, with anything in between those things
 # .it will output only the things between `~>` and `"`
@@ -145,6 +109,8 @@ fi
 REQ_SEMVER_TAG=v$(grep -oP 'semver.*~>\K(.*)(?=")' ./deps/gitver/dub.sdl)
 git -C ./deps/semver/ checkout "$REQ_SEMVER_TAG"
 
+### Build Stage
+
 # Add the dependencies to the inochi creator's local-packages file
 # .The version is calculated to semver format using the git tag
 # .the commit hash and the commit distance to the tag.
@@ -157,12 +123,14 @@ for d in ./deps/*/ ; do
         "$(semver $d)"
 done
 
-# Download dependencies and generate dub.selections.json in the process
+# Download dependencies and generate the dub.selections.json file in the process
 pushd inochi-creator
 dub describe >> ../describe.json
 popd #inochi-creator
 
 popd #dep.build
+
+### Process Stage
 
 # Get / Install flatpak-dub-generator
 wget \
@@ -170,13 +138,20 @@ wget \
     https://raw.githubusercontent.com/flatpak/flatpak-builder-tools/master/dub/flatpak-dub-generator.py 
 
 # Generate the dependency file
-python ./dep.build/flatpak-dub-generator.py \
+python3 ./dep.build/flatpak-dub-generator.py \
     --output=./dep.build/dub-dependencies.json \
     ./dep.build/inochi-creator/dub.selections.json
 
-# Swap dub archives for forked libraries
+# Generate the dub-add-local-sources.json using the generated
+# dependency file and adding the correct information to get
+# the project libraries.
 python3 ./scripts/write-dub-deps.py \
     ./dep.build/dub-dependencies.json \
     ./dub-add-local-sources.json \
     ./dep.build/deps
  
+if [ "${MODE}" == "READ" ]; then
+    echo "$CHECKOUT_TARGET" > ./.dep_target
+else
+    rm ./.dep_target
+fi
