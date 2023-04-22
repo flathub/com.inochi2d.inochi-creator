@@ -2,7 +2,7 @@
 
 set -e
 
-source ./semver.sh
+source ./scripts/semver.sh
 
 MODE="READ"
 VERIFY_CREATOR=0
@@ -98,32 +98,9 @@ if [[ "${MODE}" != "READ" ]]; then
         fi
     fi
 
-python3 << EOF
-import subprocess
-import json
-
-data = []
-result = []
-
-commit = subprocess.check_output(
-    ["git", "-C", "./inochi-creator", 
-    "rev-parse", "HEAD"]).decode("utf-8").strip()
-url = subprocess.check_output(
-    ["git", "-C", "./inochi-creator", 
-    "config", "--get", "remote.origin.url"]).decode("utf-8").strip()
-
-# Add inochi-creator entry
-result.append({
-    "type": "git",
-    "url": url,
-    "commit" : commit,
-    "disable-shallow-clone": True
-    })
-
-with open("../inochi-creator-source.json", "w") as f:
-    json.dump(result, f, indent=4)
-EOF
-
+    python3 ../scripts/write-creator-source.py \
+        "../inochi-creator-source.json" \
+        "./inochi-creator"
 fi
 
 # Download deps
@@ -168,36 +145,16 @@ fi
 REQ_SEMVER_TAG=v$(grep -oP 'semver.*~>\K(.*)(?=")' ./deps/gitver/dub.sdl)
 git -C ./deps/semver/ checkout "$REQ_SEMVER_TAG"
 
-# HACK: Undocumented way to add local packages directly to the project
-# .This function takes the name and version of a dependency
-# .and adds it to the .dub/packages/local-packages.json
-# .inside inochi-creator
-function add_dep() {
-python3 << EOF
-import json
-from os import path
-data = []
-if path.exists("./inochi-creator/.dub/packages/local-packages.json"):
-    with open("./inochi-creator/.dub/packages/local-packages.json", "r") as f:
-        data = json.loads(f.read())
-data.append(
-	{
-		"name": "$1",
-		"path": "../deps/$1/",
-		"version": "$2"
-	},
-)
-with open("./inochi-creator/.dub/packages/local-packages.json", "w") as f:
-    json.dump(data, f, indent=2)
-EOF
-}
-
-# .Call the above defined function for all the dependencies
-# .Also use the imported semver function to calculate the version
-# .in the format used by dlang
+# Add the dependencies to the inochi creator's local-packages file
+# .The version is calculated to semver format using the git tag
+# .the commit hash and the commit distance to the tag.
 mkdir -p ./inochi-creator/.dub/packages
 for d in ./deps/*/ ; do
-    add_dep $(basename $d) "$(semver $d)"
+    python3 ../scripts/write-local-packages.py \
+        ./inochi-creator/.dub/packages/local-packages.json \
+        ../deps/ \
+        $(basename $d) \
+        "$(semver $d)"
 done
 
 # Download dependencies and generate dub.selections.json in the process
@@ -218,79 +175,8 @@ python ./dep.build/flatpak-dub-generator.py \
     ./dep.build/inochi-creator/dub.selections.json
 
 # Swap dub archives for forked libraries
-python3 << EOF
-import json
-import os
-import subprocess
-import re
-
-data = []
-result = []
-with open("./dep.build/dub-dependencies.json", "r") as f:
-    data = json.loads(f.read())
-
-forked_sources = os.listdir("./dep.build/deps")
-
-# .Regular expression used to capture the name
-# .of the dependency from the url. used to check if the
-# .entry is in the list of forked_sources
-url_re = re.compile(r"https://code\.dlang\.org/packages/(.*)/")
-
-# Add gitver entry
-result.append({
-    "type": "git",
-    "url": subprocess.check_output(
-        ["git", "-C", "./dep.build/deps/gitver", 
-        "config", "--get", "remote.origin.url"]).decode("utf-8").strip(),
-    "commit" : subprocess.check_output(
-        ["git", "-C", "./dep.build/deps/gitver", 
-        "rev-parse", "HEAD"]).decode("utf-8").strip(),
-    "dest": ".flatpak-dub/gitver",
-    "disable-shallow-clone": True
-    })
-
-# Add semver entry
-result.append({
-    "type": "git",
-    "url": subprocess.check_output(
-        ["git", "-C", "./dep.build/deps/semver", 
-        "config", "--get", "remote.origin.url"]).decode("utf-8").strip(),
-    "commit" : subprocess.check_output(
-        ["git", "-C", "./dep.build/deps/semver", 
-        "rev-parse", "HEAD"]).decode("utf-8").strip(),
-    "dest": ".flatpak-dub/semver",
-    "disable-shallow-clone": True
-    })
-
-# Process all entries
-for source in data:
-    if source["type"] == "archive":
-        url_check = url_re.match(source["url"])
-        if url_check is not None and url_check[1] in forked_sources:
-            # If the entry is one of the forked libraries, replace it
-            # with the one from git
-            repo_name = url_check[1]
-            new_src = {
-                "type": "git",
-                "url": subprocess.check_output(
-                    ["git", "-C", "./dep.build/deps/%s" % repo_name, 
-                    "config", "--get", "remote.origin.url"]).decode("utf-8").strip(),
-                "commit" : subprocess.check_output(
-                    ["git", "-C", "./dep.build/deps/%s" % repo_name, 
-                    "rev-parse", "HEAD"]).decode("utf-8").strip(),
-                "dest": source["dest"],
-                "disable-shallow-clone": True
-            }
-
-            #HACK: the fghj repo has a submodule that crashes flatpak 
-            if repo_name == "fghj":
-                new_src["disable-submodules"] = True
-            result.append(new_src)
-        else:
-            result.append(source)
-    else:
-        result.append(source)
-
-with open("./dub-add-local-sources.json", "w") as f:
-    json.dump(result, f, indent=4)
-EOF
+python3 ./scripts/write-dub-deps.py \
+    ./dep.build/dub-dependencies.json \
+    ./dub-add-local-sources.json \
+    ./dep.build/deps
+ 
