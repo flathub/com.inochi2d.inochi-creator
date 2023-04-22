@@ -4,7 +4,8 @@ set -e
 
 source ./scripts/semver.sh
 
-MODE="READ"
+CHECKOUT_TARGET=
+NIGHTLY=0
 VERIFY_CREATOR=1
 
 # Parse options
@@ -13,18 +14,26 @@ for i in "$@"; do
         -h|--help)
 cat <<EOL
 Usage: $0 [OPTION]...
-Checks inochi-creator repository, calculates dependencies and stores them 
-on files ready to be used by flatpak-builder.
+Checks a specific version of inochi-creator, calculates dependencies and stores them 
+on a file ready to be used by flatpak-builder.
+By default it uses the version defined by the commit hash defined in the
+./com.inochi2d.inochi-creator.yml file
 
-    --nightly       Will checkout the latest commit from all 
-                    repositories
-    --force         Skip verification
-    --help          display this help and exit
+    --target=<string>   Checkout a specific hash/tag/branch instead of
+                        reading the one defined on the yaml file.
+    --nightly           Will checkout the latest commit from all 
+                        dependency repositories.
+    --force             Skip verification.
+    --help              Display this help and exit
 EOL
             exit 0
             ;;
+        -t=*|--target=*)
+            CHECKOUT_TARGET="${i#*=}"
+            shift # past argument=value
+            ;;
         -n|--nightly)
-            MODE="NIGHTLY"
+            NIGHTLY=1
             ;;
         -f|--force)
             VERIFY_CREATOR=0
@@ -39,11 +48,12 @@ EOL
 done
 
 ### VERIFICATION STAGE
+if [ -z ${CHECKOUT_TARGET} ]; then
+    CHECKOUT_TARGET=$(python3 ./scripts/find-creator-hash.py ./com.inochi2d.inochi-creator.yml)
+fi
 
-echo "Running on $MODE mode."
-CHECKOUT_TARGET=$(python3 ./scripts/find-creator-hash.py ./com.inochi2d.inochi-creator.yml)
 # Verify that we are not repeating work 
-if [ "${MODE}" == "READ" ] && [ "${VERIFY_CREATOR}" == "1" ]; then
+if [ "${NIGHTLY}" == "0" ] && [ "${VERIFY_CREATOR}" == "1" ]; then
     if [ -f "./.dep_target" ]; then
         LAST_PROC=$(cat ./.dep_target)
         if [ "$CHECKOUT_TARGET" == "$LAST_PROC" ]; then
@@ -84,7 +94,7 @@ git clone https://github.com/Inochi2D/gitver.git
 git clone https://github.com/dcarp/semver.git
 popd #deps
 
-if [ "${MODE}" == "READ" ]; then
+if [ "${NIGHTLY}" == "0" ]; then
     # Update repos to their state at inochi-creators commit date
     CREATOR_DATE=$(git -C ./inochi-creator/ show -s --format=%ci)
     for d in ./deps/*/ ; do
@@ -150,8 +160,8 @@ python3 ./scripts/write-dub-deps.py \
     ./dub-add-local-sources.json \
     ./dep.build/deps
  
-if [ "${MODE}" == "READ" ]; then
-    echo "$CHECKOUT_TARGET" > ./.dep_target
-else
+if [ "${NIGHTLY}" == "1" ]; then
     rm ./.dep_target
+else
+    echo "$CHECKOUT_TARGET" > ./.dep_target
 fi
