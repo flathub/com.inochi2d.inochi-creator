@@ -47,7 +47,7 @@ EOL
     esac
 done
 
-### VERIFICATION STAGE
+echo "### Verification Stage"
 if [ -z ${CHECKOUT_TARGET} ]; then
     CHECKOUT_TARGET=$(python3 ./scripts/find-creator-hash.py ./com.inochi2d.inochi-creator.yml)
 fi
@@ -63,7 +63,7 @@ if [ "${NIGHTLY}" == "0" ] && [ "${VERIFY_CREATOR}" == "1" ]; then
     fi
 fi
 
-### DOWNLOAD STAGE
+echo "### Download Stage"
 
 mkdir -p dep.build
 
@@ -74,7 +74,7 @@ pushd dep.build
 
 # Download inochi-creator
 git clone https://github.com/Inochi2D/inochi-creator.git
-git -C ./inochi-creator/ checkout $CHECKOUT_TARGET
+git -C ./inochi-creator/ checkout $CHECKOUT_TARGET 2>/dev/null
 
 # Download deps
 mkdir -p ./deps
@@ -99,7 +99,7 @@ if [ "${NIGHTLY}" == "0" ]; then
     CREATOR_DATE=$(git -C ./inochi-creator/ show -s --format=%ci)
     for d in ./deps/*/ ; do
         DEP_COMMIT=$(git -C $d log --before="$CREATOR_DATE" -n1 --pretty=format:"%H" | head -n1)
-        git -C $d checkout $DEP_COMMIT
+        git -C $d checkout $DEP_COMMIT 2>/dev/null
     done
 fi
 
@@ -117,9 +117,9 @@ if [[ "$CUR_INOCHI2D_TAG" != "$REQ_INOCHI2D_TAG" ]]; then
 fi
 # .Same logic as above, but now using semver instead of inochi2d
 REQ_SEMVER_TAG=v$(grep -oP 'semver.*~>\K(.*)(?=")' ./deps/gitver/dub.sdl)
-git -C ./deps/semver/ checkout "$REQ_SEMVER_TAG"
+git -C ./deps/semver/ checkout "$REQ_SEMVER_TAG" 2>/dev/null
 
-### Build Stage
+echo "### Build Stage"
 
 # Add the dependencies to the inochi creator's local-packages file
 # .The version is calculated to semver format using the git tag
@@ -140,11 +140,11 @@ popd #inochi-creator
 
 popd #dep.build
 
-### Process Stage
+echo "### Process Stage"
 
 # Get / Install flatpak-dub-generator
-wget \
-    -O ./dep.build/flatpak-dub-generator.py \
+curl \
+    -o ./dep.build/flatpak-dub-generator.py \
     https://raw.githubusercontent.com/flatpak/flatpak-builder-tools/master/dub/flatpak-dub-generator.py 
 
 # Generate the dependency file
@@ -161,7 +161,7 @@ python3 ./scripts/write-dub-deps.py \
     ./dep.build/deps
  
 if [ "${NIGHTLY}" == "1" ]; then
-    rm ./.dep_target
+    rm -f ./.dep_target
 else
     echo "$CHECKOUT_TARGET" > ./.dep_target
 fi
