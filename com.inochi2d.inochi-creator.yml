@@ -28,20 +28,24 @@ modules:
   # --- Inochi Creator ---
   - name: Inochi-Creator
     buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/ldc/bin
     build-commands:
-
-    # All the needed manual dependencies
-      -  dub add-local bindbc-imgui/ "0.7.0";
-        dub add-local inochi2d/ "0.7.2";
-        dub add-local facetrack-d/ "0.6.2";
-        dub add-local i18n/ "1.0.1";
-        dub add-local dcv-i2d/ "0.3.0";
-
-
-        dub build --compiler=ldc2 --build=release --config=full
+      - dub add-path .flatpak-dub;
+        dub build --skip-registry=all --build=release --config=full
+      - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
 
     sources:
       - dub-add-local-sources.json
+
+      - type: git
+        url: https://github.com/Inochi2D/inochi-creator.git
+        commit: f1bfc20122d1f912f400d0838c529e220718bfb2
+        tag: v0.7.4.1
+        disable-shallow-clone: true
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)$
 
   - name: Metadata
     buildsystem: simple
@@ -66,7 +70,6 @@ modules:
       - type: patch
         strip-components: 0
         path: desktopfile.patch
-
 
       - type: file
         path: com.inochi2d.inochi-creator.metadata.xml
