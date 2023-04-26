@@ -1,9 +1,9 @@
 id: com.inochi2d.inochi-creator
 runtime: org.freedesktop.Platform
-runtime-version: "21.08"
+runtime-version: "22.08"
 sdk: org.freedesktop.Sdk
-# sdk-extensions:
-#   - org.freedesktop.Sdk.Extension.ldc #Building Inochi2D from source, offline, would serve to be too annoying, so I'm going to instead pull binaries from upstream; it'll provide them Soon:TM:
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.ldc
 command: inochi-creator
 finish-args:
   - --device=all     #OpenGL rendering, webcams (may be required? not sure)
@@ -16,7 +16,7 @@ finish-args:
 #This extension will be needed in some newer releases, as of https://github.com/Inochi2D/inochi-creator/commit/5d67cded1273aced9033d327a8eb29c6f078a3c0
 add-extensions:
   org.freedesktop.Platform.ffmpeg-full:
-    version: '21.08'
+    version: '22.08'
     autodownload: true
     autodelete: false
 
@@ -28,21 +28,24 @@ modules:
   # --- Inochi Creator ---
   - name: Inochi-Creator
     buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/ldc/bin
     build-commands:
-      - mkdir -p /app/bin/
-      - mv * /app/bin/
-      # - mv inochi-creator /app/bin/inochi-creator
+      - dub add-path .flatpak-dub;
+        dub build --skip-registry=all --build=release --config=full
+      - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
 
     sources:
-      - type: archive
-        url: https://github.com/Inochi2D/inochi-creator/releases/download/v0.7.4.1/inochi-creator-linux-x86_64.zip #Permission for distributing with branding and the like enabled was confirmed here: https://github.com/Inochi2D/inochi-creator/issues/75
-        sha256: 7845ca9dbfbaf195d6fc6b4c09645a077e73daebcb7fb61b4bb6e8d423625245
-        x-checker-data: # Thanks to https://theevilskeleton.gitlab.io/ for sorting out the external data checker
-          type: json
-          url: https://api.github.com/repos/Inochi2D/inochi-creator/releases/latest
-          version-query: .tag_name | sub("^v"; "")
-          url-query: .assets[] | select(.name=="inochi-creator-linux-x86_64.zip")
-            | .browser_download_url
+      - dub-add-local-sources.json
+
+      - type: git
+        url: https://github.com/Inochi2D/inochi-creator.git
+        commit: f1bfc20122d1f912f400d0838c529e220718bfb2
+        tag: v0.7.4.1
+        disable-shallow-clone: true
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)$
 
   - name: Metadata
     buildsystem: simple
@@ -51,7 +54,7 @@ modules:
       - install -Dm644 com.inochi2d.inochi-creator.metadata.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
       - install -Dm644 ./creator/icon_128.png /app/share/icons/hicolor/128x128/apps/com.inochi2d.inochi-creator.png
       - install -Dm644 ./creator/icon_256.png /app/share/icons/hicolor/256x256/apps/com.inochi2d.inochi-creator.png
-      - install -Dm644 ./creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.pngcd
+      - install -Dm644 ./creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.png
       - install -Dm644 ./inochi-creator/res/inochi-creator.desktop /app/share/applications/com.inochi2d.inochi-creator.desktop
 
     sources:
@@ -68,9 +71,6 @@ modules:
         strip-components: 0
         path: desktopfile.patch
 
-
       - type: file
         path: com.inochi2d.inochi-creator.metadata.xml
-      # - type: patch
-      #   strip-components: 0
-      #   path: metadata.patch #The above file will be submitted upstream and maintained there soon.
+        
