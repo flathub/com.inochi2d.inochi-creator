@@ -32,7 +32,8 @@ modules:
       append-path: /usr/lib/sdk/ldc/bin
     build-commands:
       - dub add-path .flatpak-dub;
-        dub build --skip-registry=all --build=release --config=full
+        dub build --skip-registry=all --config=meta;
+        dub build --skip-registry=all --build=release --config=linux-full
       - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
 
     sources:
@@ -45,7 +46,7 @@ modules:
         disable-shallow-clone: true
         x-checker-data:
           type: git
-          tag-pattern: ^v([\d.]+)$
+          tag-pattern: ^v([\d.]+)
 
   - name: Metadata
     buildsystem: simple
