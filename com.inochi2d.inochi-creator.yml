@@ -51,7 +51,7 @@ modules:
     buildsystem: simple
     build-commands:
 
-      - install -Dm644 com.inochi2d.inochi-creator.metadata.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
+      - install -Dm644 com.inochi2d.inochi-creator.metainfo.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
       - install -Dm644 ./creator/icon_128.png /app/share/icons/hicolor/128x128/apps/com.inochi2d.inochi-creator.png
       - install -Dm644 ./creator/icon_256.png /app/share/icons/hicolor/256x256/apps/com.inochi2d.inochi-creator.png
       - install -Dm644 ./creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.png
@@ -72,5 +72,5 @@ modules:
         path: desktopfile.patch
 
       - type: file
-        path: com.inochi2d.inochi-creator.metadata.xml
+        path: com.inochi2d.inochi-creator.metainfo.xml
         
