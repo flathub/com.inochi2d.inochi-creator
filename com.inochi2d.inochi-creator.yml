@@ -46,7 +46,8 @@ modules:
         disable-shallow-clone: true
         x-checker-data:
           type: git
-          tag-pattern: ^v([\d.]+)
+          tag-pattern: ^v([\d.]+.+)
+          sort-tags: false
 
   - name: Metadata
     buildsystem: simple
