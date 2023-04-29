@@ -33,7 +33,8 @@ modules:
     build-commands:
       - chmod +x ./gentl.sh; ./gentl.sh
       - dub add-path .flatpak-dub;
-        dub build --skip-registry=all --build=release --config=full
+        dub build --skip-registry=all --config=meta;
+        dub build --skip-registry=all --build=release --config=linux-full
       - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
       - install -Dm644 ./out/*.mo /app/bin
 
