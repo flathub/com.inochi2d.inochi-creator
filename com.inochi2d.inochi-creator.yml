@@ -31,9 +31,11 @@ modules:
     build-options:
       append-path: /usr/lib/sdk/ldc/bin
     build-commands:
+      - chmod +x ./gentl.sh; ./gentl.sh
       - dub add-path .flatpak-dub;
         dub build --skip-registry=all --build=release --config=full
       - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
+      - install -Dm644 ./out/*.mo /app/bin
 
     sources:
       - dub-add-local-sources.json
