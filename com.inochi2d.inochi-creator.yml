@@ -1,6 +1,6 @@
 id: com.inochi2d.inochi-creator
 runtime: org.freedesktop.Platform
-runtime-version: "22.08"
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.ldc
@@ -8,8 +8,8 @@ command: inochi-creator
 finish-args:
   - --device=all     #OpenGL rendering, webcams (may be required? not sure)
   - --socket=fallback-x11
-  - --share=ipc     
-  - --socket=wayland  
+  - --share=ipc
+  - --socket=wayland
   - --filesystem=host     #This is a dev tool, it should probably have as much access to the host as it can. Also needs it for "Recent Files"
 
 
@@ -33,7 +33,8 @@ modules:
     build-commands:
       - chmod +x ./gentl.sh; ./gentl.sh
       - dub add-path .flatpak-dub;
-        dub build --skip-registry=all --build=release --config=full
+        dub build --skip-registry=all --config=meta;
+        dub build --skip-registry=all --build=release --config=linux-full
       - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
       - install -Dm644 ./out/*.mo /app/bin
 
@@ -42,8 +43,8 @@ modules:
 
       - type: git
         url: https://github.com/Inochi2D/inochi-creator.git
-        commit: f1bfc20122d1f912f400d0838c529e220718bfb2
-        tag: v0.7.4.1
+        commit: f5e2c90d65dec437a8dff8f8165f32ec933cd699
+        tag: v0.8.0
         disable-shallow-clone: true
         x-checker-data:
           type: git
@@ -75,4 +76,4 @@ modules:
 
       - type: file
         path: com.inochi2d.inochi-creator.metainfo.xml
-        
+
