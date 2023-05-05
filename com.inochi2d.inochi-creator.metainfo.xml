@@ -19,69 +19,71 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.8.0" date="2023-05-02"/>
-    <release version="v0.7.4.1" date="2022-10-10" type="stable">
+    <release version="0.8.0" date="2023-05-02">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.0</url>
+    </release>
+    <release version="0.7.4.1" date="2022-10-10">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.7.4.1</url>
-          <description>
-            <p>Changelog</p>
-            <ul>
-                <li>Added support for xdg-desktop-portal on Linux</li>
-                <li>Added link buttons</li>
-                <li>Added welcome screen</li>
-                <li>Added banner illustration by 七乃ななせ</li>
-                <li>Added shadowed text widget</li>
-                <li>Added a new Inochi Creator icon</li>
-                <li>Added new fancy texture slot</li>
-                <li>Added support for editing post processing textures</li>
-                <li>Added ability to convert albedo textures to emmission textures</li>
-                <li>Added right click menu in viewport for part selection</li>
-                <li>Added model export dialog</li>
-                <li>Added new Camera node</li>
-                <li>Added image export</li>
-                <li>Added border scroll to nodes list when dragging nodes around</li>
-                <li>Added parameter groups with coloration support</li>
-                <li>Added internal support for custom toolbars</li>
-                <li>Added experimental timeline in InExperimental</li>
-                <li>Added new issue templates for bug reporting and feature requests</li>
-                <li>Added links in the help menu for bug reporting and feature requests</li>
-                <li>Updated Japanese translation</li>
-                <li>Updated Chinese translations</li>
-                <li>Updated Danish translation</li>
-                <li>Updated italian translation</li>
-                <li>Updated shortcut handling</li>
-                <li>Updated UI scaling implementation (still work in progress)</li>
-                <li>Updated UI settings window with a new design</li>
-                <li>Updated parameter axes with a new design</li>
-                <li>Updated look of categories in the inspector</li>
-                <li>Updated look and functionality of the viewport</li>
-                <li>Updated the look and functionality of mesh editing</li>
-                <li>Updated light theme</li>
-                <li>Changed packaging format on Linux to Flatpak</li>
-                <li>Changed how parameters are displayed when editing</li>
-                <li>Changed minimum window size to 960x720</li>
-                <li>Changed Gizmo settings to be in a submenu</li>
-                <li>Fixed multiple textures conflicting on PSD merge</li>
-                <li>Fixed rendering of armed parameters</li>
-                <li>Fixed various imgui assert crashes</li>
-                <li>Fixed path corruption in previous projects list</li>
-                <li>Fixed physics being enabled when editing deformation</li>
-                <li>Fixed null terminator in string input</li>
-                <li>Fixed undo system for parameter editing</li>
-                <li>Fixed undo system for moving node around</li>
-                <li>Fixed language selection not showing language name in their native language</li>
-                <li>Fixed ordering of language selection</li>
-                <li>Fixed parameters not getting disarmed on project load</li>
-                <li>Fixed Wayland detection code</li>
-                <li>Fixed accuracy camera auto focus functionality</li>
-                <li>Fixed some windows not running their quit functionality when closed</li>
-                <li>Fixed display of gravity units in Puppet inspector</li>
-                <li>Fixed vertex offset during merge being applied wrong</li>
-                <li>Fixed center node/Viewport accidentally being a dockable node</li>
-                <li>Fixed icon on Linux with X11 being wrong</li>
-                <li>Removed LTO compilation</li>
-                <li>Removed Test Mode temporarily</li>
-            </ul>
-          </description>
+      <description>
+        <p>Changelog</p>
+        <ul>
+            <li>Added support for xdg-desktop-portal on Linux</li>
+            <li>Added link buttons</li>
+            <li>Added welcome screen</li>
+            <li>Added banner illustration by 七乃ななせ</li>
+            <li>Added shadowed text widget</li>
+            <li>Added a new Inochi Creator icon</li>
+            <li>Added new fancy texture slot</li>
+            <li>Added support for editing post processing textures</li>
+            <li>Added ability to convert albedo textures to emmission textures</li>
+            <li>Added right click menu in viewport for part selection</li>
+            <li>Added model export dialog</li>
+            <li>Added new Camera node</li>
+            <li>Added image export</li>
+            <li>Added border scroll to nodes list when dragging nodes around</li>
+            <li>Added parameter groups with coloration support</li>
+            <li>Added internal support for custom toolbars</li>
+            <li>Added experimental timeline in InExperimental</li>
+            <li>Added new issue templates for bug reporting and feature requests</li>
+            <li>Added links in the help menu for bug reporting and feature requests</li>
+            <li>Updated Japanese translation</li>
+            <li>Updated Chinese translations</li>
+            <li>Updated Danish translation</li>
+            <li>Updated italian translation</li>
+            <li>Updated shortcut handling</li>
+            <li>Updated UI scaling implementation (still work in progress)</li>
+            <li>Updated UI settings window with a new design</li>
+            <li>Updated parameter axes with a new design</li>
+            <li>Updated look of categories in the inspector</li>
+            <li>Updated look and functionality of the viewport</li>
+            <li>Updated the look and functionality of mesh editing</li>
+            <li>Updated light theme</li>
+            <li>Changed packaging format on Linux to Flatpak</li>
+            <li>Changed how parameters are displayed when editing</li>
+            <li>Changed minimum window size to 960x720</li>
+            <li>Changed Gizmo settings to be in a submenu</li>
+            <li>Fixed multiple textures conflicting on PSD merge</li>
+            <li>Fixed rendering of armed parameters</li>
+            <li>Fixed various imgui assert crashes</li>
+            <li>Fixed path corruption in previous projects list</li>
+            <li>Fixed physics being enabled when editing deformation</li>
+            <li>Fixed null terminator in string input</li>
+            <li>Fixed undo system for parameter editing</li>
+            <li>Fixed undo system for moving node around</li>
+            <li>Fixed language selection not showing language name in their native language</li>
+            <li>Fixed ordering of language selection</li>
+            <li>Fixed parameters not getting disarmed on project load</li>
+            <li>Fixed Wayland detection code</li>
+            <li>Fixed accuracy camera auto focus functionality</li>
+            <li>Fixed some windows not running their quit functionality when closed</li>
+            <li>Fixed display of gravity units in Puppet inspector</li>
+            <li>Fixed vertex offset during merge being applied wrong</li>
+            <li>Fixed center node/Viewport accidentally being a dockable node</li>
+            <li>Fixed icon on Linux with X11 being wrong</li>
+            <li>Removed LTO compilation</li>
+            <li>Removed Test Mode temporarily</li>
+        </ul>
+      </description>
     </release>
   </releases>
   <url type="homepage">https://lunafoxgirlvt.itch.io/inochi-creator</url>
