@@ -98,7 +98,7 @@
     },
     {
         "type": "archive",
-        "url": "https://code.dlang.org/packages/i2d-imgui/0.8.0+build.2.gb171b85.zip",
+        "url": "https://code.dlang.org/packages/i2d-imgui/0.8.0.zip",
         "sha256": "3efa1631a58d55de98cf7fae54ab7ccc559f7a34d5cecf8ea514991b56f068c0",
         "dest": ".flatpak-dub/i2d-imgui-0.8.0+build.2.gb171b85"
     },
