@@ -97,10 +97,11 @@
         "disable-shallow-clone": true
     },
     {
-        "type": "archive",
-        "url": "https://code.dlang.org/packages/i2d-imgui/0.8.0+build.2.gb171b85.zip",
-        "sha256": "3efa1631a58d55de98cf7fae54ab7ccc559f7a34d5cecf8ea514991b56f068c0",
-        "dest": ".flatpak-dub/i2d-imgui-0.8.0+build.2.gb171b85"
+        "type": "git",
+        "url": "https://github.com/Inochi2D/i2d-imgui.git",
+        "commit": "b171b85f164f99690328f428465a5db64f44a24d",
+        "dest": ".flatpak-dub/i2d-imgui-0.8.0+build.2.gb171b85",
+        "disable-shallow-clone": true
     },
     {
         "type": "archive",
