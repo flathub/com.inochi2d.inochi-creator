@@ -19,77 +19,192 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.8.1" date="2023-07-09"/>
+    <release version="0.8.1" date="2023-07-09">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.1</url>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Added flatpak nightly builds (@grillo-delmal)</li>
+          <li>Added translation target (@scrwnl)</li>
+          <li>Added new installer for Windows</li>
+          <li>Added new UI elements to make the UI easier to read for colorblind users.</li>
+          <li>Added support for importing Krita documents (@otrocodigo)</li>
+          <li>Removed unreferenced translations (@scrwnl)</li>
+          <li>Updated spanish translation for v0.8.1 (@grillo-delmal)</li>
+          <li>Update dzh_CN translations for v0.8.1 (@Richardn2002)</li>
+          <li>Updated Japanese translation. (@seagetch)</li>
+          <li>Updated organisation of build scripts (@grillo-delmal)</li>
+          <li>Updated Inochi2D dependency to 0.8.2
+            <ul>
+              <li>Added "Glow (Add) option for blending mode</li>
+              <li>Added "Destination In" option for blending mode</li>
+              <li>Added multistage blending support, you can now combine the new blending modes and emission/bumpmap textures.</li>
+              <li>Fixed blending modes on Intel and AMD GPUs</li>
+              <li>Fixed blending modes for older GPUs that do not support coherent blending extensions.</li>
+              <li>Updated shaders to make recoloring affect emission textures.</li>
+              <li>Removed superfluous NV extension from blending.</li>
+              <li>Optimized blending and drawing code.</li>
+            </ul>
+          </li>
+          <li>Fixed set from mirror sometimes not working (@seagetch)</li>
+          <li>Fixed workflow to work with resource cleanup (@grillo-delmal)</li>
+          <li>Fixed weird rotation behaviors by on-screen handle. (@seagetch)</li>
+          <li>Fixed a crash when trying to removed vertices that were mirrored by axis (@seagetch)</li>
+          <li>Fixed a bug where Inochi Creator would crash if a node used as a mask source was removed (@seagetch)</li>
+          <li>Fixed a crash when closing a top level window in the window stack.</li>
+          <li>Fixed uncaught circular dependency when moving nodes around</li>
+          <li>Fixed badge for nightly builds in README</li>
+          <li>Fixed potential model corruption due to invalid serialization of NaN values.</li>
+          <li>Fixed a crash when opening the flip config window (@seagetch)</li>
+          <li>Fixed a crash when pasting parameter items with incompatibilities</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.0" date="2023-05-02">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.0</url>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Added tools for creating Animations</li>
+          <li>Added Video Export support for Animations</li>
+          <li>Added Mesh Group Node</li>
+          <li>Added Flip Pairings system</li>
+          <li>Added Advanced Blending Modes</li>
+          <li>Updated ja.po by @seagetch</li>
+          <li>[ja] translation fix by @scrwnl</li>
+          <li>[ja] fix typo by @scrwnl</li>
+          <li>Post 0 7 4 by @seagetch</li>
+          <li>Added roughly mirrored algorithm for automesh by @seagetch</li>
+          <li>Add spanish translation by @p-yukusai</li>
+          <li>Fix some typos by @p-yukusai</li>
+          <li>Flip deformation, and auto recalculation of mesh on vertex addition / removal. by @seagetch</li>
+          <li>Add German translations (both formal and informal) by @0x5066</li>
+          <li>Update ja.po by @scrwnl</li>
+          <li>On screen edit by @seagetch</li>
+          <li>Modifier key handling improvement for on-screen edit (scaling) by @seagetch</li>
+          <li>Updated extrapolation algorithm for automesh. by @seagetch</li>
+          <li>on-screen-edit: Show operation handles only when edit mode is ModelEdit. by @seagetch</li>
+          <li>Zh translation nov5 2022 by @LovelyA72</li>
+          <li>Fix translation by @LovelyA72</li>
+          <li>Albedo zhcn tl fix by @LovelyA72</li>
+          <li>Edit multiple parts at once. by @seagetch</li>
+          <li>Improvement of multi-select edit. by @seagetch</li>
+          <li>Path Deformation for Non-Drawable Node object. by @seagetch</li>
+          <li>Fix some bugs about multi-edit. by @seagetch</li>
+          <li>Undo/Parameter change bug fix refinement for multi-edit path by @seagetch</li>
+          <li>multi-edit: Fix bugs: transformation matrix is not updated when T/R/S is changed during edit of armed parameter. by @seagetch</li>
+          <li>Update template.pot, ja.po by @scrwnl</li>
+          <li>Refactoring step1 for MeshEditor by @seagetch</li>
+          <li>Implemented undo/redo for mesh generation / edit mode. by @seagetch</li>
+          <li>Fix bug #171 and other bugs. by @seagetch</li>
+          <li>Fixed bug #174 by @seagetch</li>
+          <li>Fix bug #143. by @seagetch</li>
+          <li>Fix bug #177, #178, and #180 by @seagetch</li>
+          <li>Two enhancement for the path deformation tool. by @seagetch</li>
+          <li>Fix bug #186 by @seagetch</li>
+          <li>Fix weird behavior of undo/redo for path tool. by @seagetch</li>
+          <li>Auto-flipping by @seagetch</li>
+          <li>Meshgroup adaptation for creator. by @seagetch</li>
+          <li>Drag handle: Support Non-Part node, and multiple node translation. by @seagetch</li>
+          <li>Meshgroup: fix display in vertex edit mode. by @seagetch</li>
+          <li>Meshgroup: bug fixes around internal cache data management of MeshGroup. by @seagetch</li>
+          <li>Fix spanish translation by @grillo-delmal</li>
+          <li>Meshgroup2: grid tool. by @seagetch</li>
+          <li>bug fix: occasional crash on mesh vertex update. by @seagetch</li>
+          <li>bug fix: "Flip deform" deforms correctly even if target Part is not selected. by @seagetch</li>
+          <li>Suggestion to change parameter structure in the model. by @seagetch</li>
+          <li>Rework on MeshEditor for deformation manipulation. by @seagetch</li>
+          <li>Fix INP export crash by @seagetch</li>
+          <li>Bug fix: avoid crash for some cases on vertex removal. by @seagetch</li>
+          <li>Adjust-origin: adjust center of nodes / meshgroups from bounding box of children. by @seagetch</li>
+          <li>Copy / paste / paste and horizontal flip operation for parameter menu by @seagetch</li>
+          <li>Flipconfig save by @seagetch</li>
+          <li>bug fix: Parameters moved from root to Parameter Group is not handled correctly. by @seagetch</li>
+          <li>Some fixes around grid tool, and rest of MeshGroup extension. by @seagetch</li>
+          <li>bug fix: workaround for #109 and #233 by @seagetch</li>
+          <li>Put crash logs in the appropriate directories on POSIX systems by @orowith2os</li>
+          <li>Add function to autosave the project by @pankern</li>
+          <li>Replace spawnShell() with browse() by @scrwnl</li>
+          <li>update italian translation by @adryzz</li>
+          <li>Update Spanish translation by @grillo-delmal</li>
+          <li>Filtering bindings to show only bindings for selected nodes. by @seagetch</li>
+          <li>Initial Zh translation 0.8 by @LovelyA72</li>
+          <li>Update Spanish translation in es.po by @p-yukusai</li>
+          <li>Fix bugs of mirrored flipping. by @seagetch</li>
+          <li>Fix malformed undo history for autoflip by @seagetch</li>
+          <li>update italian translation by @adryzz</li>
+          <li>Updated the German translations by @0x5066</li>
+          <li>Spanish translation review by @grillo-delmal</li>
+        </ul>
+      </description>
     </release>
     <release version="0.7.4.1" date="2022-10-10">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.7.4.1</url>
       <description>
         <p>Changelog</p>
         <ul>
-            <li>Added support for xdg-desktop-portal on Linux</li>
-            <li>Added link buttons</li>
-            <li>Added welcome screen</li>
-            <li>Added banner illustration by 七乃ななせ</li>
-            <li>Added shadowed text widget</li>
-            <li>Added a new Inochi Creator icon</li>
-            <li>Added new fancy texture slot</li>
-            <li>Added support for editing post processing textures</li>
-            <li>Added ability to convert albedo textures to emmission textures</li>
-            <li>Added right click menu in viewport for part selection</li>
-            <li>Added model export dialog</li>
-            <li>Added new Camera node</li>
-            <li>Added image export</li>
-            <li>Added border scroll to nodes list when dragging nodes around</li>
-            <li>Added parameter groups with coloration support</li>
-            <li>Added internal support for custom toolbars</li>
-            <li>Added experimental timeline in InExperimental</li>
-            <li>Added new issue templates for bug reporting and feature requests</li>
-            <li>Added links in the help menu for bug reporting and feature requests</li>
-            <li>Updated Japanese translation</li>
-            <li>Updated Chinese translations</li>
-            <li>Updated Danish translation</li>
-            <li>Updated italian translation</li>
-            <li>Updated shortcut handling</li>
-            <li>Updated UI scaling implementation (still work in progress)</li>
-            <li>Updated UI settings window with a new design</li>
-            <li>Updated parameter axes with a new design</li>
-            <li>Updated look of categories in the inspector</li>
-            <li>Updated look and functionality of the viewport</li>
-            <li>Updated the look and functionality of mesh editing</li>
-            <li>Updated light theme</li>
-            <li>Changed packaging format on Linux to Flatpak</li>
-            <li>Changed how parameters are displayed when editing</li>
-            <li>Changed minimum window size to 960x720</li>
-            <li>Changed Gizmo settings to be in a submenu</li>
-            <li>Fixed multiple textures conflicting on PSD merge</li>
-            <li>Fixed rendering of armed parameters</li>
-            <li>Fixed various imgui assert crashes</li>
-            <li>Fixed path corruption in previous projects list</li>
-            <li>Fixed physics being enabled when editing deformation</li>
-            <li>Fixed null terminator in string input</li>
-            <li>Fixed undo system for parameter editing</li>
-            <li>Fixed undo system for moving node around</li>
-            <li>Fixed language selection not showing language name in their native language</li>
-            <li>Fixed ordering of language selection</li>
-            <li>Fixed parameters not getting disarmed on project load</li>
-            <li>Fixed Wayland detection code</li>
-            <li>Fixed accuracy camera auto focus functionality</li>
-            <li>Fixed some windows not running their quit functionality when closed</li>
-            <li>Fixed display of gravity units in Puppet inspector</li>
-            <li>Fixed vertex offset during merge being applied wrong</li>
-            <li>Fixed center node/Viewport accidentally being a dockable node</li>
-            <li>Fixed icon on Linux with X11 being wrong</li>
-            <li>Removed LTO compilation</li>
-            <li>Removed Test Mode temporarily</li>
+          <li>Added support for xdg-desktop-portal on Linux</li>
+          <li>Added link buttons</li>
+          <li>Added welcome screen</li>
+          <li>Added banner illustration by 七乃ななせ</li>
+          <li>Added shadowed text widget</li>
+          <li>Added a new Inochi Creator icon</li>
+          <li>Added new fancy texture slot</li>
+          <li>Added support for editing post processing textures</li>
+          <li>Added ability to convert albedo textures to emmission textures</li>
+          <li>Added right click menu in viewport for part selection</li>
+          <li>Added model export dialog</li>
+          <li>Added new Camera node</li>
+          <li>Added image export</li>
+          <li>Added border scroll to nodes list when dragging nodes around</li>
+          <li>Added parameter groups with coloration support</li>
+          <li>Added internal support for custom toolbars</li>
+          <li>Added experimental timeline in InExperimental</li>
+          <li>Added new issue templates for bug reporting and feature requests</li>
+          <li>Added links in the help menu for bug reporting and feature requests</li>
+          <li>Updated Japanese translation</li>
+          <li>Updated Chinese translations</li>
+          <li>Updated Danish translation</li>
+          <li>Updated italian translation</li>
+          <li>Updated shortcut handling</li>
+          <li>Updated UI scaling implementation (still work in progress)</li>
+          <li>Updated UI settings window with a new design</li>
+          <li>Updated parameter axes with a new design</li>
+          <li>Updated look of categories in the inspector</li>
+          <li>Updated look and functionality of the viewport</li>
+          <li>Updated the look and functionality of mesh editing</li>
+          <li>Updated light theme</li>
+          <li>Changed packaging format on Linux to Flatpak</li>
+          <li>Changed how parameters are displayed when editing</li>
+          <li>Changed minimum window size to 960x720</li>
+          <li>Changed Gizmo settings to be in a submenu</li>
+          <li>Fixed multiple textures conflicting on PSD merge</li>
+          <li>Fixed rendering of armed parameters</li>
+          <li>Fixed various imgui assert crashes</li>
+          <li>Fixed path corruption in previous projects list</li>
+          <li>Fixed physics being enabled when editing deformation</li>
+          <li>Fixed null terminator in string input</li>
+          <li>Fixed undo system for parameter editing</li>
+          <li>Fixed undo system for moving node around</li>
+          <li>Fixed language selection not showing language name in their native language</li>
+          <li>Fixed ordering of language selection</li>
+          <li>Fixed parameters not getting disarmed on project load</li>
+          <li>Fixed Wayland detection code</li>
+          <li>Fixed accuracy camera auto focus functionality</li>
+          <li>Fixed some windows not running their quit functionality when closed</li>
+          <li>Fixed display of gravity units in Puppet inspector</li>
+          <li>Fixed vertex offset during merge being applied wrong</li>
+          <li>Fixed center node/Viewport accidentally being a dockable node</li>
+          <li>Fixed icon on Linux with X11 being wrong</li>
+          <li>Removed LTO compilation</li>
+          <li>Removed Test Mode temporarily</li>
         </ul>
       </description>
     </release>
   </releases>
   <url type="homepage">https://lunafoxgirlvt.itch.io/inochi-creator</url>
   <url type="bugtracker">https://github.com/Inochi2D/inochi-creator/issues</url>
-  <url type="help">https://discord.com/invite/abnxwN6r9v</url>
+  <url type="help">https://docs.inochi2d.com</url>
   <url type="donation">https://inochi2d.com/#donate</url>
   <url type="vcs-browser">https://github.com/Inochi2D/inochi-creator</url>
   <url type="contribute">https://github.com/Inochi2D/inochi-creator</url>
