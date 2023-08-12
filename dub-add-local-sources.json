@@ -77,8 +77,8 @@
     {
         "type": "git",
         "url": "https://github.com/Inochi2D/facetrack-d.git",
-        "commit": "2459d65440ed77bd927ab194655755d073930743",
-        "dest": ".flatpak-dub/facetrack-d-0.7.6+build.2.g2459d65",
+        "commit": "135b304abcd1320657a7404dcb7bbd622f344318",
+        "dest": ".flatpak-dub/facetrack-d-0.7.7+build.2.g135b304",
         "disable-shallow-clone": true
     },
     {
@@ -126,15 +126,15 @@
     {
         "type": "git",
         "url": "https://github.com/Inochi2D/inochi2d.git",
-        "commit": "c0ff526144c4a327822c9b0cb22a53652f1a147c",
-        "dest": ".flatpak-dub/inochi2d-0.8.2",
+        "commit": "dc97f305668962ac4e462b344cf841c20a184168",
+        "dest": ".flatpak-dub/inochi2d-0.8.3",
         "disable-shallow-clone": true
     },
     {
         "type": "git",
         "url": "https://github.com/Inochi2D/kra-d.git",
-        "commit": "fd44b7f89aba67734efb645b3a59e0dd1629534d",
-        "dest": ".flatpak-dub/kra-d-0.5.5+build.2.gfd44b7f",
+        "commit": "25453ad77d4826d15f905ac7259b3188d855697f",
+        "dest": ".flatpak-dub/kra-d-0.5.5+build.3.g25453ad",
         "disable-shallow-clone": true
     },
     {
@@ -151,15 +151,15 @@
     },
     {
         "type": "archive",
-        "url": "https://code.dlang.org/packages/mir-algorithm/3.20.4.zip",
-        "sha256": "410b1a64beb8219959a82644cfa387c1141bc15888768c849f915d5e6faa61fa",
-        "dest": ".flatpak-dub/mir-algorithm-3.20.4"
+        "url": "https://code.dlang.org/packages/mir-algorithm/3.21.0.zip",
+        "sha256": "7c0dd31e36b92fa6fd3d845d0eee34a48650f729b0a8186b734441b6f56d48e0",
+        "dest": ".flatpak-dub/mir-algorithm-3.21.0"
     },
     {
         "type": "archive",
-        "url": "https://code.dlang.org/packages/mir-core/1.5.5.zip",
-        "sha256": "5ebb26c12d31fbe1e0785cee0ff56f161787d6b1e198dec57c46f2f5594ea40a",
-        "dest": ".flatpak-dub/mir-core-1.5.5"
+        "url": "https://code.dlang.org/packages/mir-core/1.6.0.zip",
+        "sha256": "de9880de4cc6190e0b45001d33e914d6c06b8ad1b1ba0262bba4d1794b8ff025",
+        "dest": ".flatpak-dub/mir-core-1.6.0"
     },
     {
         "type": "archive",
@@ -188,8 +188,8 @@
     {
         "type": "git",
         "url": "https://github.com/Inochi2D/psd-d.git",
-        "commit": "9135f90b7f59b1d3413eb77a37c2a0f276f8d345",
-        "dest": ".flatpak-dub/psd-d-0.6.3",
+        "commit": "b07f8aa3867f0cb2206c18075d167db58741139c",
+        "dest": ".flatpak-dub/psd-d-0.6.3+build.2.gb07f8aa",
         "disable-shallow-clone": true
     },
     {
@@ -237,7 +237,7 @@
     },
     {
         "type": "inline",
-        "contents": "[{\"name\": \"bcaa\", \"version\": \"0.0.8\", \"path\": \".flatpak-dub/bcaa-0.0.8\"}, {\"name\": \"bindbc-loader\", \"version\": \"1.0.3\", \"path\": \".flatpak-dub/bindbc-loader-1.0.3\"}, {\"name\": \"bindbc-sdl\", \"version\": \"1.1.3\", \"path\": \".flatpak-dub/bindbc-sdl-1.1.3\"}, {\"name\": \"dcv\", \"version\": \"0.3.0\", \"path\": \".flatpak-dub/dcv-0.3.0\"}, {\"name\": \"ddbus\", \"version\": \"3.0.0-beta.2\", \"path\": \".flatpak-dub/ddbus-3.0.0-beta.2\"}, {\"name\": \"diet-ng\", \"version\": \"1.8.1\", \"path\": \".flatpak-dub/diet-ng-1.8.1\"}, {\"name\": \"dportals\", \"version\": \"0.1.0\", \"path\": \".flatpak-dub/dportals-0.1.0\"}, {\"name\": \"dunit\", \"version\": \"1.0.16\", \"path\": \".flatpak-dub/dunit-1.0.16\"}, {\"name\": \"dxml\", \"version\": \"0.4.3\", \"path\": \".flatpak-dub/dxml-0.4.3\"}, {\"name\": \"eventcore\", \"version\": \"0.9.25\", \"path\": \".flatpak-dub/eventcore-0.9.25\"}, {\"name\": \"facetrack-d\", \"version\": \"0.7.6+build.2.g2459d65\", \"path\": \".flatpak-dub/facetrack-d-0.7.6+build.2.g2459d65\"}, {\"name\": \"fghj\", \"version\": \"1.0.2\", \"path\": \".flatpak-dub/fghj-1.0.2\"}, {\"name\": \"i18n-d\", \"version\": \"1.0.2\", \"path\": \".flatpak-dub/i18n-d-1.0.2\"}, {\"name\": \"i2d-imgui\", \"version\": \"0.8.0+build.2.gb171b85\", \"path\": \".flatpak-dub/i2d-imgui-0.8.0+build.2.gb171b85\"}, {\"name\": \"i2d-opengl\", \"version\": \"1.0.0\", \"path\": \".flatpak-dub/i2d-opengl-1.0.0\"}, {\"name\": \"imagefmt\", \"version\": \"2.1.2\", \"path\": \".flatpak-dub/imagefmt-2.1.2\"}, {\"name\": \"inmath\", \"version\": \"1.0.5+build.1.g3e46a1a\", \"path\": \".flatpak-dub/inmath-1.0.5+build.1.g3e46a1a\"}, {\"name\": \"inochi2d\", \"version\": \"0.8.2\", \"path\": \".flatpak-dub/inochi2d-0.8.2\"}, {\"name\": \"kra-d\", \"version\": \"0.5.5+build.2.gfd44b7f\", \"path\": \".flatpak-dub/kra-d-0.5.5+build.2.gfd44b7f\"}, {\"name\": \"libasync\", \"version\": \"0.8.6\", \"path\": \".flatpak-dub/libasync-0.8.6\"}, {\"name\": \"memutils\", \"version\": \"1.0.9\", \"path\": \".flatpak-dub/memutils-1.0.9\"}, {\"name\": \"mir-algorithm\", \"version\": \"3.20.4\", \"path\": \".flatpak-dub/mir-algorithm-3.20.4\"}, {\"name\": \"mir-core\", \"version\": \"1.5.5\", \"path\": \".flatpak-dub/mir-core-1.5.5\"}, {\"name\": \"mir-linux-kernel\", \"version\": \"1.0.1\", \"path\": \".flatpak-dub/mir-linux-kernel-1.0.1\"}, {\"name\": \"mir-random\", \"version\": \"2.2.19\", \"path\": \".flatpak-dub/mir-random-2.2.19\"}, {\"name\": \"openssl\", \"version\": \"3.3.0\", \"path\": \".flatpak-dub/openssl-3.3.0\"}, {\"name\": \"openssl-static\", \"version\": \"1.0.2+3.0.8\", \"path\": \".flatpak-dub/openssl-static-1.0.2+3.0.8\"}, {\"name\": \"psd-d\", \"version\": \"0.6.3\", \"path\": \".flatpak-dub/psd-d-0.6.3\"}, {\"name\": \"silly\", \"version\": \"1.1.1\", \"path\": \".flatpak-dub/silly-1.1.1\"}, {\"name\": \"stdx-allocator\", \"version\": \"2.77.5\", \"path\": \".flatpak-dub/stdx-allocator-2.77.5\"}, {\"name\": \"taggedalgebraic\", \"version\": \"0.11.22\", \"path\": \".flatpak-dub/taggedalgebraic-0.11.22\"}, {\"name\": \"tinyfiledialogs\", \"version\": \"0.10.1\", \"path\": \".flatpak-dub/tinyfiledialogs-0.10.1\"}, {\"name\": \"vibe-core\", \"version\": \"2.2.0\", \"path\": \".flatpak-dub/vibe-core-2.2.0\"}, {\"name\": \"vibe-d\", \"version\": \"0.9.6\", \"path\": \".flatpak-dub/vibe-d-0.9.6\"}, {\"name\": \"vmc-d\", \"version\": \"1.1.3\", \"path\": \".flatpak-dub/vmc-d-1.1.3\"}]",
+        "contents": "[{\"name\": \"bcaa\", \"version\": \"0.0.8\", \"path\": \".flatpak-dub/bcaa-0.0.8\"}, {\"name\": \"bindbc-loader\", \"version\": \"1.0.3\", \"path\": \".flatpak-dub/bindbc-loader-1.0.3\"}, {\"name\": \"bindbc-sdl\", \"version\": \"1.1.3\", \"path\": \".flatpak-dub/bindbc-sdl-1.1.3\"}, {\"name\": \"dcv\", \"version\": \"0.3.0\", \"path\": \".flatpak-dub/dcv-0.3.0\"}, {\"name\": \"ddbus\", \"version\": \"3.0.0-beta.2\", \"path\": \".flatpak-dub/ddbus-3.0.0-beta.2\"}, {\"name\": \"diet-ng\", \"version\": \"1.8.1\", \"path\": \".flatpak-dub/diet-ng-1.8.1\"}, {\"name\": \"dportals\", \"version\": \"0.1.0\", \"path\": \".flatpak-dub/dportals-0.1.0\"}, {\"name\": \"dunit\", \"version\": \"1.0.16\", \"path\": \".flatpak-dub/dunit-1.0.16\"}, {\"name\": \"dxml\", \"version\": \"0.4.3\", \"path\": \".flatpak-dub/dxml-0.4.3\"}, {\"name\": \"eventcore\", \"version\": \"0.9.25\", \"path\": \".flatpak-dub/eventcore-0.9.25\"}, {\"name\": \"facetrack-d\", \"version\": \"0.7.7+build.2.g135b304\", \"path\": \".flatpak-dub/facetrack-d-0.7.7+build.2.g135b304\"}, {\"name\": \"fghj\", \"version\": \"1.0.2\", \"path\": \".flatpak-dub/fghj-1.0.2\"}, {\"name\": \"i18n-d\", \"version\": \"1.0.2\", \"path\": \".flatpak-dub/i18n-d-1.0.2\"}, {\"name\": \"i2d-imgui\", \"version\": \"0.8.0+build.2.gb171b85\", \"path\": \".flatpak-dub/i2d-imgui-0.8.0+build.2.gb171b85\"}, {\"name\": \"i2d-opengl\", \"version\": \"1.0.0\", \"path\": \".flatpak-dub/i2d-opengl-1.0.0\"}, {\"name\": \"imagefmt\", \"version\": \"2.1.2\", \"path\": \".flatpak-dub/imagefmt-2.1.2\"}, {\"name\": \"inmath\", \"version\": \"1.0.5+build.1.g3e46a1a\", \"path\": \".flatpak-dub/inmath-1.0.5+build.1.g3e46a1a\"}, {\"name\": \"inochi2d\", \"version\": \"0.8.3\", \"path\": \".flatpak-dub/inochi2d-0.8.3\"}, {\"name\": \"kra-d\", \"version\": \"0.5.5+build.3.g25453ad\", \"path\": \".flatpak-dub/kra-d-0.5.5+build.3.g25453ad\"}, {\"name\": \"libasync\", \"version\": \"0.8.6\", \"path\": \".flatpak-dub/libasync-0.8.6\"}, {\"name\": \"memutils\", \"version\": \"1.0.9\", \"path\": \".flatpak-dub/memutils-1.0.9\"}, {\"name\": \"mir-algorithm\", \"version\": \"3.21.0\", \"path\": \".flatpak-dub/mir-algorithm-3.21.0\"}, {\"name\": \"mir-core\", \"version\": \"1.6.0\", \"path\": \".flatpak-dub/mir-core-1.6.0\"}, {\"name\": \"mir-linux-kernel\", \"version\": \"1.0.1\", \"path\": \".flatpak-dub/mir-linux-kernel-1.0.1\"}, {\"name\": \"mir-random\", \"version\": \"2.2.19\", \"path\": \".flatpak-dub/mir-random-2.2.19\"}, {\"name\": \"openssl\", \"version\": \"3.3.0\", \"path\": \".flatpak-dub/openssl-3.3.0\"}, {\"name\": \"openssl-static\", \"version\": \"1.0.2+3.0.8\", \"path\": \".flatpak-dub/openssl-static-1.0.2+3.0.8\"}, {\"name\": \"psd-d\", \"version\": \"0.6.3+build.2.gb07f8aa\", \"path\": \".flatpak-dub/psd-d-0.6.3+build.2.gb07f8aa\"}, {\"name\": \"silly\", \"version\": \"1.1.1\", \"path\": \".flatpak-dub/silly-1.1.1\"}, {\"name\": \"stdx-allocator\", \"version\": \"2.77.5\", \"path\": \".flatpak-dub/stdx-allocator-2.77.5\"}, {\"name\": \"taggedalgebraic\", \"version\": \"0.11.22\", \"path\": \".flatpak-dub/taggedalgebraic-0.11.22\"}, {\"name\": \"tinyfiledialogs\", \"version\": \"0.10.1\", \"path\": \".flatpak-dub/tinyfiledialogs-0.10.1\"}, {\"name\": \"vibe-core\", \"version\": \"2.2.0\", \"path\": \".flatpak-dub/vibe-core-2.2.0\"}, {\"name\": \"vibe-d\", \"version\": \"0.9.6\", \"path\": \".flatpak-dub/vibe-d-0.9.6\"}, {\"name\": \"vmc-d\", \"version\": \"1.1.3\", \"path\": \".flatpak-dub/vmc-d-1.1.3\"}]",
         "dest": ".dub/packages",
         "dest-filename": "local-packages.json"
     },
