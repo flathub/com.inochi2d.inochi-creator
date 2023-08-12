@@ -19,7 +19,18 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.8.2" date="2023-08-12"/>
+    <release version="0.8.2" date="2023-08-12">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.2</url>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Added configuration UI for Inochi2D/inochi2d#50 (@seagetch)</li>
+          <li>Updated ja.po (@seagetch)</li>
+          <li>Updated Inochi2D to 0.8.3</li>
+          <li>Fixed crash when editing meshgroup in some conditions (@seagetch)</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.1" date="2023-07-09">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.1</url>
       <description>
