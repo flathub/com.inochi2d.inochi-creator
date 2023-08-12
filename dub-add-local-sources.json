@@ -126,7 +126,7 @@
     {
         "type": "git",
         "url": "https://github.com/Inochi2D/inochi2d.git",
-        "commit": "dc97f305668962ac4e462b344cf841c20a184168",
+        "commit": "3e9eab9e963ad1ab82e081821f61475fc9d3250d",
         "dest": ".flatpak-dub/inochi2d-0.8.3",
         "disable-shallow-clone": true
     },
