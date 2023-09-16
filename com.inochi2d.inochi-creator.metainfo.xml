@@ -19,7 +19,21 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.8.3" date="2023-09-16"/>
+    <release version="0.8.3" date="2023-09-16">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.3</url>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Added new buttons to switch tool modes</li>
+          <li>Added partial deformation support</li>
+          <li>Added support for nesting MeshGroup deformation in the editor</li>
+          <li>Improved the readability of deformations when stacked</li>
+          <li>Updated Japanese translation</li>
+          <li>Updated Welcome dialog</li>
+          <li>Fixed invalid flip pairing config</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.2" date="2023-08-12">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.2</url>
       <description>
