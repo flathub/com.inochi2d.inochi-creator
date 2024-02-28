@@ -19,7 +19,25 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="0.8.4" date="2024-02-28"/>
+    <release version="0.8.4" date="2024-02-28">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.4</url>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Added deformation brush (@seagetch in #328)</li>
+          <li>Added node icons to Flip Pairing window (@grillo-delmal in #326)</li>
+          <li>Added nagscreen support</li>
+          <li>Added nagscreen for demo version</li>
+          <li>Updated Inochi Creator macOS info</li>
+          <li>Updated the macOS version Inochi Creator is built on</li>
+          <li>Fixed discovery of libSDL on macOS</li>
+          <li>Fixed paste behaviour for keypoints (@seagetch in #322)</li>
+          <li>Fixed composite node children not being shown in vertex edit mode (@seagetch in #323)</li>
+          <li>Fixed mirror deformation attempting to mirror non-drawable nodes (@grillo-delmal in #327)</li>
+          <li>Fixed github runner homebrew install breaking everything, again...</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.3" date="2023-09-16">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.3</url>
       <description>
