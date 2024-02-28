@@ -3,7 +3,9 @@
   <id>com.inochi2d.inochi-creator</id>
   <name>Inochi Creator</name>
   <summary>Tool to create and edit Inochi2D puppets</summary>
-  <developer_name>Luna Nielsen</developer_name>
+  <developer id="com.inochi2d">
+    <name>Luna Nielsen</name>
+  </developer>
   <launchable type="desktop-id">com.inochi2d.inochi-creator.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>BSD-2-Clause</project_license>
@@ -19,6 +21,25 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="0.8.4" date="2024-02-28">
+      <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.4</url>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Added deformation brush (@seagetch in #328)</li>
+          <li>Added node icons to Flip Pairing window (@grillo-delmal in #326)</li>
+          <li>Added nagscreen support</li>
+          <li>Added nagscreen for demo version</li>
+          <li>Updated Inochi Creator macOS info</li>
+          <li>Updated the macOS version Inochi Creator is built on</li>
+          <li>Fixed discovery of libSDL on macOS</li>
+          <li>Fixed paste behaviour for keypoints (@seagetch in #322)</li>
+          <li>Fixed composite node children not being shown in vertex edit mode (@seagetch in #323)</li>
+          <li>Fixed mirror deformation attempting to mirror non-drawable nodes (@grillo-delmal in #327)</li>
+          <li>Fixed github runner homebrew install breaking everything, again...</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.8.3" date="2023-09-16">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.3</url>
       <description>
@@ -61,18 +82,15 @@
           <li>Update dzh_CN translations for v0.8.1 (@Richardn2002)</li>
           <li>Updated Japanese translation. (@seagetch)</li>
           <li>Updated organisation of build scripts (@grillo-delmal)</li>
-          <li>Updated Inochi2D dependency to 0.8.2
-            <ul>
-              <li>Added "Glow (Add) option for blending mode</li>
-              <li>Added "Destination In" option for blending mode</li>
-              <li>Added multistage blending support, you can now combine the new blending modes and emission/bumpmap textures.</li>
-              <li>Fixed blending modes on Intel and AMD GPUs</li>
-              <li>Fixed blending modes for older GPUs that do not support coherent blending extensions.</li>
-              <li>Updated shaders to make recoloring affect emission textures.</li>
-              <li>Removed superfluous NV extension from blending.</li>
-              <li>Optimized blending and drawing code.</li>
-            </ul>
-          </li>
+          <li>Updated Inochi2D dependency to 0.8.2</li>
+          <li>  Added "Glow (Add) option for blending mode</li>
+          <li>  Added "Destination In" option for blending mode</li>
+          <li>  Added multistage blending support, you can now combine the new blending modes and emission/bumpmap textures.</li>
+          <li>  Fixed blending modes on Intel and AMD GPUs</li>
+          <li>  Fixed blending modes for older GPUs that do not support coherent blending extensions.</li>
+          <li>  Updated shaders to make recoloring affect emission textures.</li>
+          <li>  Removed superfluous NV extension from blending.</li>
+          <li>  Optimized blending and drawing code.</li>
           <li>Fixed set from mirror sometimes not working (@seagetch)</li>
           <li>Fixed workflow to work with resource cleanup (@grillo-delmal)</li>
           <li>Fixed weird rotation behaviors by on-screen handle. (@seagetch)</li>
@@ -238,9 +256,9 @@
   <categories>
     <category>Graphics</category>
   </categories>
-  <requires>
+  <recommends>
     <control>pointing</control>
     <control>keyboard</control>
-  </requires>
+  </recommends>
   <content_rating type="oars-1.1"/>
 </component>
