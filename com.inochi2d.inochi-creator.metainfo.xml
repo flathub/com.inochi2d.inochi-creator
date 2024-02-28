@@ -19,6 +19,7 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="0.8.4" date="2024-02-28"/>
     <release version="0.8.3" date="2023-09-16">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.3</url>
       <description>
