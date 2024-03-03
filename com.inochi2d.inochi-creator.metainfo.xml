@@ -4,7 +4,7 @@
   <name>Inochi Creator</name>
   <summary>Tool to create and edit Inochi2D puppets</summary>
   <developer id="com.inochi2d">
-    <name>Luna Nielsen</name>
+    <name>Luna the Foxgirl</name>
   </developer>
   <launchable type="desktop-id">com.inochi2d.inochi-creator.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
