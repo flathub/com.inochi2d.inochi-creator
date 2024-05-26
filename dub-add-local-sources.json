@@ -119,7 +119,7 @@
     {
         "type": "git",
         "url": "https://github.com/Inochi2D/inmath.git",
-        "commit": "14df899c264e54395fe3c7483b94dceb5a288333",
+        "commit": "6ee33a0e160bcf0c0286a16e232feeeae2306548",
         "dest": ".flatpak-dub/inmath-1.0.6",
         "disable-shallow-clone": true
     },

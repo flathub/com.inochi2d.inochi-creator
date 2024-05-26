@@ -22,7 +22,17 @@
   </screenshots>
   <releases>
     <release version="0.8.5" date="2024-05-26">
-      <description></description>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>Update translation files and Spanish translation by @grillo-delmal in #334</li>
+          <li>[Feature] Add extra map modes that work with flipped axis to Simple Physics by @grillo-delmal in #339</li>
+          <li>Restore Edge Tool tooltip and icon by @grillo-delmal in #341</li>
+          <li>Fix Krita document import tooltip by @lucasms07 in #350</li>
+          <li>Fix path deform tool crashing on meshless nodes by @grillo-delmal in #344</li>
+          <li>Fix crash when iterating into unpaired flip pairings by @grillo-delmal in #345</li>
+        </ul>
+      </description>
     </release>
     <release version="0.8.4" date="2024-02-28">
       <url>https://github.com/Inochi2D/inochi-creator/releases/tag/v0.8.4</url>
