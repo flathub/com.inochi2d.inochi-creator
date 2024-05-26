@@ -91,8 +91,10 @@ git clone https://github.com/KitsunebiGames/i18n.git i18n-d
 git clone https://github.com/Inochi2D/dportals.git
 git clone https://github.com/Inochi2D/kra-d.git
 
-#Fixme: Use v0_8 branch until v9 is usable
+# Fixme Use v0_8 branch until v9 is usable
 git -C ./inochi2d checkout v0_8
+# Lock inmath to v1.0.6 for now ;9
+git -C ./inmath checkout v1.0.6
 
 # Download gitver and semver
 git clone https://github.com/Inochi2D/gitver.git

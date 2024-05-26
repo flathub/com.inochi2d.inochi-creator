@@ -32,7 +32,7 @@ result.append({
         ["git", "-C", gitver_path, 
         "rev-parse", "HEAD"]).decode("utf-8").strip(),
     "dest": ".flatpak-dub/gitver",
-    "disable-shallow-clone": True
+    "disable-shallow-clone": False
     })
 
 # Add semver entry
@@ -47,7 +47,7 @@ result.append({
         ["git", "-C", semver_path, 
         "rev-parse", "HEAD"]).decode("utf-8").strip(),
     "dest": ".flatpak-dub/semver",
-    "disable-shallow-clone": True
+    "disable-shallow-clone": False
     })
 
 # Process all entries
@@ -68,7 +68,7 @@ for source in data:
                     ["git", "-C", repo_path, 
                     "rev-parse", "HEAD"]).decode("utf-8").strip(),
                 "dest": source["dest"],
-                "disable-shallow-clone": True
+                "disable-shallow-clone": False
             }
 
             #HACK: the fghj repo has a submodule that crashes flatpak 
