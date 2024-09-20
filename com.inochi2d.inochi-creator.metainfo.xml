@@ -22,7 +22,41 @@
   </screenshots>
   <releases>
     <release version="0.8.6" date="2024-09-20">
-      <description></description>
+      <description>
+        <p>Changelog</p>
+        <ul>
+          <li>minor bug fixes in v0.8.5 by @seagetch in #361</li>
+          <li>Enhancement of automesh: added grid mesh configuration. by @seagetch in #362</li>
+          <li>New Viewport Zooming Control by @r888800009 in #383</li>
+          <li>Add Mirror Viewport Feature by @r888800009 in #384</li>
+          <li>Duplicate Dialog return value avoids mistakes reuse reference by @r888800009 in #393</li>
+          <li>Fixed Mirror View and Flip Pairings igButton Label Collision by @r888800009 in #385</li>
+          <li>Fixed animation create crash when import PSD or KRA by @r888800009 in #386</li>
+          <li>Save to temp to prevent file corruption by @r888800009 in #388</li>
+          <li>feat: show/hide Mesh Group Child Nodes Bounds by @r888800009 in #394</li>
+          <li>Feature: Preserving Folder Structure by @r888800009 in #395</li>
+          <li>Settings: Handle corrupted settings file and provide error dialog by @r888800009 in #396</li>
+          <li>Use memmove to prevent ASAN memcpy-param-overlap in release build by @r888800009 in #397</li>
+          <li>Experimental: Add SizeSort for Viewport Right Click Menu Sorting by @r888800009 in #398</li>
+          <li>animlist.d: Add duplicate animation option to animlist panel by @r888800009 in #405</li>
+          <li>Add support for opening .inx files when DRAG n DROP by @r888800009 in #403</li>
+          <li>Added autoConnect Feature by @r888800009 in #401</li>
+          <li>Feature: Add polygonal lasso tool for meshedit by @r888800009 in #409</li>
+          <li>fix: apply one-time transformation to MeshGroupNode drawing by @r888800009 in #407</li>
+          <li>Refactored and Allow inspector node icon toggle by @r888800009 in #408</li>
+          <li>Fixed calculation of mouse position when rotation of X/Y is set. by @seagetch in #410</li>
+          <li>Add validation for camera size to prevent crashes and close pipe by @r888800009 in #411</li>
+          <li>Feature: Add Node Filter and Support Shift Selection in NodesPanel by @r888800009 in #404</li>
+          <li>Simplified Chinese translations for 0.8.6, since 0.8.1. by @Richardn2002 in #413</li>
+          <li>Features: scrolling when parameter arm selection by @r888800009 in #406</li>
+          <li>Fix Lasso Tooltip by @r888800009 in #416</li>
+          <li>Pt-BR translation by @yussuna in #414</li>
+          <li>zh-TW.po translation and fix ja.po, zh-CN.po icon, doc by @r888800009 in #420</li>
+          <li>Add translation validation script and update documentation by @r888800009 in #417</li>
+          <li>0.8.6 New Feature Fixes by @r888800009 in #415</li>
+          <li>Spanish translation update by @grillo-delmal in #422</li>
+        </ul>
+      </description>
     </release>
     <release version="0.8.5" date="2024-05-26">
       <description>

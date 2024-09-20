@@ -25,7 +25,6 @@ Use the update-dependencies.sh
 ./update-dependencies.sh \
     --yml-creator=../com.inochi2d.inochi-creator/com.inochi2d.inochi-creator.yml \ 
     --skip-patch
-cp -f dub-add-local-sources.json ../com.inochi2d.inochi-creator/dub-add-local-sources.json
 ```
 
 ## Local Test
