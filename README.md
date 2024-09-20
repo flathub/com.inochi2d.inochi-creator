@@ -23,14 +23,18 @@ Use the update-dependencies.sh
 
 ```sh
 ./update-dependencies.sh \
-    --yml-creator=../com.inochi2d.inochi-creator/com.inochi2d.inochi-creator.yml \ 
+    --yml-creator=../com.inochi2d.inochi-creator/com.inochi2d.inochi-creator.yml \
     --skip-patch
 ```
 
 ## Local Test
 
-```
-flatpak-builder --default-branch=localbuild --force-clean --repo=./repo-dir ./build-dir com.inochi2d.inochi-creator.yml
+```sh
+flatpak-builder \
+    --default-branch=localbuild \
+    --force-clean \
+    --repo=./repo-dir \
+    ./build-dir com.inochi2d.inochi-creator.yml
 
 flatpak build-bundle \
     --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
