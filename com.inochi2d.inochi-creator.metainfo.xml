@@ -21,6 +21,9 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="0.8.6" date="2024-09-20">
+      <description></description>
+    </release>
     <release version="0.8.5" date="2024-05-26">
       <description>
         <p>Changelog</p>
