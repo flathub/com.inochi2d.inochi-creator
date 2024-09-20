@@ -28,8 +28,10 @@ modules:
       append-path: /usr/lib/sdk/ldc/bin
     build-commands:
       - chmod +x ./gentl.sh; ./gentl.sh
-      - dub add-path .flatpak-dub; dub build --skip-registry=all --config=meta; dub
-        build --skip-registry=all --build=release --config=linux-demo
+      - dub add-path .flatpak-dub; dub add-local .flatpak-dub/semver/*/semver; dub
+        add-local .flatpak-dub/gitver/*/gitver; dub build --skip-registry=all --config=update-version;
+        dub build --skip-registry=all --config=meta; dub build --skip-registry=all
+        --build=release --config=linux-demo
       - install -Dm 755 ./out/inochi-creator /app/bin/inochi-creator
       - install -Dm644 ./out/*.mo /app/bin
       - install -Dm644 ./metainfo/com.inochi2d.inochi-creator.metainfo.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
@@ -45,8 +47,8 @@ modules:
 
       - type: git
         url: https://github.com/Inochi2D/inochi-creator.git
-        commit: 4d58449e6a3f7a9bf09f85b675c5e4e61f757deb
-        tag: v0.8.5
+        commit: 371e5f4e21117102dbecc82371bfd9a6e2f5df02
+        tag: v0.8.6
         disable-shallow-clone: true
         x-checker-data:
           type: git
