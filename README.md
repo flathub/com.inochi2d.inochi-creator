@@ -1,37 +1,49 @@
-# Inochi Creator
+# com.inochi2d.inochi-creator
 
-## update-dependencies.sh script
+## Update Base
 
-This script will generate the dependency lists for inochi-creator, using as reference the commit hash from the `./com.inochi2d.inochi-creator.yml` file.
+```sh
+podman run --rm \
+    -v$(pwd):/opt:Z --workdir=/opt \
+    docker://ghcr.io/flathub/flatpak-external-data-checker:latest \
+    --edit-only ./com.inochi2d.inochi-creator.yml 
+```
 
-### Verification stage
-* Extract the commit hash from the `./com.inochi2d.inochi-creator.yml` file (`checkout target`)
-* The next part of the process can be skipped if you use the `-f/--force` argument.
-  * If it's not a nightly build and a `.dep_target` file exists.
-    * Extract the commit hash from `.dep_target`.
-    * If both hashes are the same, then the process exits with err code 1.
+## Update dependencies
 
-### Download Stage
-* Clears the working folder (`./dep.build`).
-* Clones inochi-creator repository.
-* Checkouts the commit hash from the `checkout target`.
-* Clones all the forked repositories into the deps folder.
-* If its not a nightly build, then it sincronizes the deps with the inochi-creator repo through the following steps.
-  * Checkout the latest tag for inochi-creator.
-  * Check the date from inochi-creator's latest tag head.
-  * For each repo find the latest commit before the date of the latest tag's head.
-  * Checkout that commit.
-* Fix the tag for inochi2d if it's broken.
-* Checkout semver version required for gitver.
+Get the grillo-delmal/inochi-creator-devtest repository.
 
-### Build Stage
-* Add all the forked repositories as local dependencies for the inochi-creator project.
-* Run `dub describe` to download the dependencies and list the required versions on `dub.selections.json`.
+```sh
+cd ..
+git clone https://github.com/grillo-delmal/inochi-creator-devtest
+cd inochi-creator-devtest
+```
 
-### Process Stage
-* Get `flatpak-dub-generator.py` from [flatpak-builder-tools](https://github.com/flatpak/flatpak-builder-tools).
-* Run through the processed `dub.selections.json` to generate `dub-add-local-sources.json`.
-  * Adds the gitver and semver repositories.
-  * Replace all the forked libraries with the propper git repositories and commit hashes.
-* If it's a nightly build, it will remove the `.dep_target` file.
-  * If its not, it will store the `checkout target` to the `.dep_target` file.
+Use the update-dependencies.sh
+
+```sh
+./update-dependencies.sh \
+    --yml-creator=../com.inochi2d.inochi-creator/com.inochi2d.inochi-creator.yml \ 
+    --skip-patch
+cp -f dub-add-local-sources.json ../com.inochi2d.inochi-creator/dub-add-local-sources.json
+```
+
+## Local Test
+
+```
+flatpak-builder --default-branch=localbuild --force-clean --repo=./repo-dir ./build-dir com.inochi2d.inochi-creator.yml
+
+flatpak build-bundle \
+    --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
+    ./repo-dir \
+    inochi-creator.x86_64.flatpak \
+    com.inochi2d.inochi-creator localbuild
+flatpak build-bundle \
+    --runtime \
+    ./repo-dir \
+    inochi-creator.x86_64.debug.flatpak \
+    com.inochi2d.inochi_creator.Debug localbuild
+
+flatpak --user -y install inochi-creator.x86_64.flatpak
+flatpak --user -y install inochi-creator.x86_64.debug.flatpak
+```

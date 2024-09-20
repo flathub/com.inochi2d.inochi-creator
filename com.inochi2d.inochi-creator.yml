@@ -1,23 +1,25 @@
 id: com.inochi2d.inochi-creator
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.ldc
-  - org.freedesktop.Sdk.Extension.llvm14
+  - org.freedesktop.Sdk.Extension.llvm16
+add-extensions:
+  - org.freedesktop.Platform.ffmpeg-full:
+    version: '23.08'
+    directory: lib/ffmpeg
+    add-ld-path: .
 command: inochi-creator
 finish-args:
-  - --device=all          # OpenGL rendering, webcams (may be required? not sure)
+  - --device=dri          # OpenGL rendering
   - --socket=fallback-x11
   - --share=ipc
   - --socket=wayland
-  - --filesystem=host     # This is a dev tool, it should probably have as much access to the host as it can. Also needs it for "Recent Files"
+  - --filesystem=host     # Needed for file drop and "Recent Files" handling
 
 modules:
   - shared-modules/SDL2/SDL2-with-libdecor.json
-
-  # Add ffmpeg to support animation recording
-  - modules/ffmpeg.yml
 
   # --- Inochi Creator ---
   - name: Inochi-Creator
@@ -28,8 +30,15 @@ modules:
       - chmod +x ./gentl.sh; ./gentl.sh
       - dub add-path .flatpak-dub; dub build --skip-registry=all --config=meta; dub
         build --skip-registry=all --build=release --config=linux-demo
-      - install -m 755 ./out/inochi-creator /app/bin/inochi-creator
+      - install -Dm 755 ./out/inochi-creator /app/bin/inochi-creator
       - install -Dm644 ./out/*.mo /app/bin
+      - install -Dm644 ./metainfo/com.inochi2d.inochi-creator.metainfo.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
+      - install -Dm644 ./branding//creator/icon_128.png /app/share/icons/hicolor/128x128/apps/com.inochi2d.inochi-creator.png
+      - install -Dm644 ./branding/creator/icon_256.png /app/share/icons/hicolor/256x256/apps/com.inochi2d.inochi-creator.png
+      - install -Dm644 ./branding/creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.png
+      - desktop-file-edit --set-name="Inochi Creator" --set-icon="com.inochi2d.inochi-creator"
+        ./build-aux/linux/inochi-creator.desktop
+      - install -Dm644 ./build-aux/linux/inochi-creator.desktop /app/share/applications/com.inochi2d.inochi-creator.desktop
 
     sources:
       - dub-add-local-sources.json
@@ -44,24 +53,11 @@ modules:
           tag-pattern: ^v([\d.]+)$
           is-main-source: true
 
-  - name: Metadata
-    buildsystem: simple
-    build-commands:
-
-      - install -Dm644 com.inochi2d.inochi-creator.metainfo.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
-      - install -Dm644 ./creator/icon_128.png /app/share/icons/hicolor/128x128/apps/com.inochi2d.inochi-creator.png
-      - install -Dm644 ./creator/icon_256.png /app/share/icons/hicolor/256x256/apps/com.inochi2d.inochi-creator.png
-      - install -Dm644 ./creator/icon_512.png /app/share/icons/hicolor/512x512/apps/com.inochi2d.inochi-creator.png
-      - install -Dm644 inochi-creator.desktop /app/share/applications/com.inochi2d.inochi-creator.desktop
-
-    sources:
       - type: git
         url: https://github.com/Inochi2D/branding.git
         commit: a412602d346ba69c63237217ae286112e300927d
-
-      - type: file
-        path: inochi-creator.desktop
+        dest: ./branding
 
       - type: file
         path: com.inochi2d.inochi-creator.metainfo.xml
-
+        dest: ./metainfo
