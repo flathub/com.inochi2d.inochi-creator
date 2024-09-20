@@ -1,3 +1,5 @@
 .flatpak-builder
 dep.build
 build-dir
+repo-dir
+*.flatpak
