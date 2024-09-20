@@ -36,7 +36,7 @@ flatpak build-bundle \
     --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
     ./repo-dir \
     inochi-creator.x86_64.flatpak \
-    com.inochi2d.inochi-creator localbuild
+    com.inochi2d.inochi_creator localbuild
 flatpak build-bundle \
     --runtime \
     ./repo-dir \
