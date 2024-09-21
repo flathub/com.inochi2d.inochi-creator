@@ -12,7 +12,7 @@ add-extensions:
     add-ld-path: .
 command: inochi-creator
 finish-args:
-  - --device=dri          # OpenGL rendering
+  - --device=all          # OpenGL rendering
   - --socket=fallback-x11
   - --share=ipc
   - --socket=wayland
