@@ -14,7 +14,7 @@
     {
         "type": "archive",
         "url": "https://code.dlang.org/packages/bindbc-sdl/1.1.3.zip",
-        "sha256": "08b54bf91675789928616ca2090464860a1a761d3c913367c0e1ddb3ad38247a",
+        "sha256": "7e1e86862cf2f8da7e7ce85235773056c59c03cc508b1874864cb75ca104ef88",
         "dest": ".flatpak-dub/bindbc-sdl/1.1.3/bindbc-sdl"
     },
     {
@@ -176,7 +176,7 @@
     {
         "type": "archive",
         "url": "https://code.dlang.org/packages/silly/1.1.1.zip",
-        "sha256": "4bce750403f703ae1596eecc54c42b67716aaeb11c97b9bb847140f497bd15d0",
+        "sha256": "ffb78e740db5ab36c216c349ec36548a91c66fd1b69b980c1fd3e912ce8ae73b",
         "dest": ".flatpak-dub/silly/1.1.1/silly"
     },
     {

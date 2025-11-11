@@ -1,13 +1,13 @@
 id: com.inochi2d.inochi-creator
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.ldc
-  - org.freedesktop.Sdk.Extension.llvm16
+  - org.freedesktop.Sdk.Extension.llvm18
 add-extensions:
   - org.freedesktop.Platform.ffmpeg-full:
-    version: '23.08'
+    version: '24.08'
     directory: lib/ffmpeg
     add-ld-path: .
 command: inochi-creator
@@ -17,21 +17,28 @@ finish-args:
   - --share=ipc
   - --socket=wayland
   - --filesystem=host     # Needed for file drop and "Recent Files" handling
+cleanup-commands:
+  - mkdir -p ${FLATPAK_DEST}/lib/ffmpeg
 
 modules:
-  - shared-modules/SDL2/SDL2-with-libdecor.json
-
-  # --- Inochi Creator ---
-  - name: Inochi-Creator
+  - name: inochi-creator
     buildsystem: simple
     build-options:
       append-path: /usr/lib/sdk/ldc/bin
+      prepend-path: /usr/lib/sdk/llvm18/bin
+      prepend-ld-library-path: /usr/lib/sdk/llvm18/lib
+      env:
+        DFLAGS: '-g --d-debug'
     build-commands:
-      - chmod +x ./gentl.sh; ./gentl.sh
-      - dub add-path .flatpak-dub; dub add-local .flatpak-dub/semver/*/semver; dub
-        add-local .flatpak-dub/gitver/*/gitver; dub build --skip-registry=all --config=update-version;
-        dub build --skip-registry=all --config=meta; dub build --skip-registry=all
-        --build=release --config=linux-demo
+      - ls -alh /usr/lib/sdk/ldc/bin
+      - chmod +x ./gentl.sh;
+        ./gentl.sh
+      - dub add-path .flatpak-dub;
+        dub add-local .flatpak-dub/semver/*/semver;
+        dub add-local .flatpak-dub/gitver/*/gitver;
+        dub build --skip-registry=all --config=update-version;
+        dub build --skip-registry=all --config=meta;
+        dub build --skip-registry=all --config=linux-demo
       - install -Dm 755 ./out/inochi-creator /app/bin/inochi-creator
       - install -Dm644 ./out/*.mo /app/bin
       - install -Dm644 ./metainfo/com.inochi2d.inochi-creator.metainfo.xml /app/share/metainfo/com.inochi2d.inochi-creator.metainfo.xml
@@ -41,25 +48,13 @@ modules:
       - desktop-file-edit --set-name="Inochi Creator" --set-icon="com.inochi2d.inochi-creator"
         ./build-aux/linux/inochi-creator.desktop
       - install -Dm644 ./build-aux/linux/inochi-creator.desktop /app/share/applications/com.inochi2d.inochi-creator.desktop
-
     sources:
       - dub-add-local-sources.json
-
-      - type: git
-        url: https://github.com/Inochi2D/inochi-creator.git
-        commit: 371e5f4e21117102dbecc82371bfd9a6e2f5df02
-        tag: v0.8.6
-        disable-shallow-clone: true
-        x-checker-data:
-          type: git
-          tag-pattern: ^v([\d.]+)$
-          is-main-source: true
-
+      - latest-creator.yml
       - type: git
         url: https://github.com/Inochi2D/branding.git
         commit: a412602d346ba69c63237217ae286112e300927d
         dest: ./branding
-
       - type: file
         path: com.inochi2d.inochi-creator.metainfo.xml
         dest: ./metainfo
