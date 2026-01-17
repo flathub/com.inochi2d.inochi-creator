@@ -1,15 +1,10 @@
 id: com.inochi2d.inochi-creator
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.ldc
   - org.freedesktop.Sdk.Extension.llvm18
-add-extensions:
-  org.freedesktop.Platform.ffmpeg-full:
-    version: '24.08'
-    directory: lib/ffmpeg
-    add-ld-path: .
 command: inochi-creator
 finish-args:
   - --device=all          # OpenGL rendering
@@ -17,8 +12,6 @@ finish-args:
   - --share=ipc
   - --socket=wayland
   - --filesystem=host     # Needed for file drop and "Recent Files" handling
-cleanup-commands:
-  - mkdir -p ${FLATPAK_DEST}/lib/ffmpeg
 
 modules:
   - name: inochi-creator
