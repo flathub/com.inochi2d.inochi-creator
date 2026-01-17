@@ -3,8 +3,8 @@ runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.ldc
-  - org.freedesktop.Sdk.Extension.llvm18
+  - org.freedesktop.Sdk.Extension.ldc//24.08
+  - org.freedesktop.Sdk.Extension.llvm20
 command: inochi-creator
 finish-args:
   - --device=all          # OpenGL rendering
@@ -18,8 +18,8 @@ modules:
     buildsystem: simple
     build-options:
       append-path: /usr/lib/sdk/ldc/bin
-      prepend-path: /usr/lib/sdk/llvm18/bin
-      prepend-ld-library-path: /usr/lib/sdk/llvm18/lib
+      prepend-path: /usr/lib/sdk/llvm20/bin
+      prepend-ld-library-path: /usr/lib/sdk/llvm20/lib
       env:
         DFLAGS: '-g --d-debug'
     build-commands:
