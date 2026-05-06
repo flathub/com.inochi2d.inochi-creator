@@ -1,0 +1,75 @@
+diff --git a/source/creator/viewport/common/mesheditor/operations/drawable.d b/source/creator/viewport/common/mesheditor/operations/drawable.d
+index 7af0863..8f6f15e 100644
+--- a/source/creator/viewport/common/mesheditor/operations/drawable.d
++++ b/source/creator/viewport/common/mesheditor/operations/drawable.d
+@@ -488,7 +488,13 @@ protected:
+             return;
+         deformation = drawable.deformation.dup;
+         auto param = incArmedParameter();
+-        auto binding = cast(DeformationParameterBinding)(param? param.getBinding(drawable, "deform"): null);
++        DeformationParameterBinding binding;
++        if(param){
++            binding = cast(DeformationParameterBinding)(param.getBinding(drawable, "deform"));
++        } else {
++            binding = null;
++        }
++
+         if (binding is null) {
+             deformation = drawable.deformation.dup;
+             
+diff --git a/source/creator/viewport/common/mesheditor/tools/brush.d b/source/creator/viewport/common/mesheditor/tools/brush.d
+index 5e07411..39b55a6 100644
+--- a/source/creator/viewport/common/mesheditor/tools/brush.d
++++ b/source/creator/viewport/common/mesheditor/tools/brush.d
+@@ -248,7 +248,14 @@ class BrushToolInfo : ToolInfoBase!BrushTool {
+     bool displayToolOptions(bool deformOnly, VertexToolMode toolMode, IncMeshEditorOne[Node] editors) {
+         igPushStyleVar(ImGuiStyleVar.ItemSpacing, ImVec2(0, 0));
+         igPushStyleVar(ImGuiStyleVar.WindowPadding, ImVec2(4, 4));
+-        auto brushTool = cast(BrushTool)(editors.length == 0 ? null: editors.values()[0].getTool());
++
++        BrushTool brushTool;
++        if(editors.length == 0){
++            brushTool = null;
++        } else {
++            brushTool = cast(BrushTool)(editors.values()[0].getTool());
++        }
++
+             igBeginGroup();
+                 if (incButtonColored("", ImVec2(0, 0), (brushTool !is null && !brushTool.getFlow())? ImVec4.init : ImVec4(0.6, 0.6, 0.6, 1))) { // path definition
+                     foreach (e; editors) {
+diff --git a/source/creator/viewport/common/mesheditor/tools/pathdeform.d b/source/creator/viewport/common/mesheditor/tools/pathdeform.d
+index c7c4072..db460d2 100644
+--- a/source/creator/viewport/common/mesheditor/tools/pathdeform.d
++++ b/source/creator/viewport/common/mesheditor/tools/pathdeform.d
+@@ -403,7 +403,12 @@ class PathDeformToolInfo : ToolInfoBase!PathDeformTool {
+     bool displayToolOptions(bool deformOnly, VertexToolMode toolMode, IncMeshEditorOne[Node] editors) { 
+         igPushStyleVar(ImGuiStyleVar.ItemSpacing, ImVec2(0, 0));
+         igPushStyleVar(ImGuiStyleVar.WindowPadding, ImVec2(4, 4));
+-        auto deformTool = cast(PathDeformTool)(editors.length == 0 ? null: editors.values()[0].getTool());
++        PathDeformTool deformTool;
++        if(editors.length == 0){
++            deformTool = null;
++        } else {
++            deformTool = cast(PathDeformTool)(editors.values()[0].getTool());
++        }
+         igBeginGroup();
+             if (incButtonColored("", ImVec2(0, 0), (deformTool !is null && deformTool.mode == PathDeformTool.Mode.Define)? ImVec4.init : ImVec4(0.6, 0.6, 0.6, 1))) { // path definition
+                 foreach (e; editors) {
+diff --git a/source/creator/viewport/common/mesheditor/tools/point.d b/source/creator/viewport/common/mesheditor/tools/point.d
+index c56543a..ee65594 100644
+--- a/source/creator/viewport/common/mesheditor/tools/point.d
++++ b/source/creator/viewport/common/mesheditor/tools/point.d
+@@ -481,7 +481,12 @@ class PointToolInfo : ToolInfoBase!PointTool {
+         if (deformOnly) {
+ 
+         } else {
+-            auto pointTool = cast(PointTool)(editors.length == 0 ? null: editors.values()[0].getTool());
++            PointTool pointTool;
++            if (editors.length == 0){
++                pointTool = null;
++            }else{
++                pointTool = cast(PointTool)(editors.values()[0].getTool());
++            }
+             igBeginGroup();
+                 if (incButtonColored("", ImVec2(0, 0), (pointTool !is null && !pointTool.isAutoConnect())? ImVec4.init : ImVec4(0.6, 0.6, 0.6, 1))) {
+                 foreach (e; editors) {
